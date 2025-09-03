@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { CheckCircle, Star, Users, Clock, Shield, Sparkles, Scissors, Wrench, Zap, Home, Dog } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Components
 import { LoadingOverlay } from '@/components/LoadingOverlay';
@@ -12,7 +13,7 @@ import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import { SectionHeading } from '@/components/SectionHeading';
 import { GradientButton } from '@/components/GradientButton';
 import { ServiceCard } from '@/components/ServiceCard';
-import { ThreeHeroCanvas } from '@/components/ThreeHeroCanvas';
+import { GridMotion } from '@/components/ui/grid-motion';
 import { openWhatsApp } from '@/utils/wa';
 
 const Index = () => {
@@ -107,7 +108,7 @@ const Index = () => {
       {showLoading && (
         <LoadingOverlay 
           onComplete={() => setShowLoading(false)}
-          variant="beat"
+          variant="letters"
         />
       )}
 
@@ -116,7 +117,7 @@ const Index = () => {
           <Header />
           
           {/* Hero Section */}
-          <section className="relative min-h-screen flex items-center bg-background overflow-hidden">
+          <section className="relative min-h-screen flex items-center bg-background overflow-hidden pt-20 md:pt-0">
             <div className="container-custom">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 
@@ -125,7 +126,7 @@ const Index = () => {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="space-y-8 text-center lg:text-left"
+                  className="space-y-8 text-center lg:text-left order-2 lg:order-1"
                 >
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-heading leading-tight">
                     <span className="text-gradient">Handling</span> Life's{' '}
@@ -133,7 +134,7 @@ const Index = () => {
                     Effortlessly
                   </h1>
                   
-                  <p className="text-xl text-body-light max-w-2xl">
+                  <p className="text-xl text-body-light max-w-2xl mx-auto lg:mx-0">
                     Book trusted professionals for home services, repairs, grooming, and more — right at your doorstep in Aligarh.
                   </p>
 
@@ -179,14 +180,28 @@ const Index = () => {
                   </motion.div>
                 </motion.div>
 
-                {/* Right: 3D Canvas */}
+                {/* Right: GridMotion - Hidden on mobile */}
                 <motion.div
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
-                  className="relative"
+                  className="relative hidden md:block order-1 lg:order-2"
                 >
-                  <ThreeHeroCanvas className="w-full h-[500px]" />
+                  <div className="w-full h-[500px] rounded-2xl overflow-hidden">
+                    <GridMotion 
+                      items={[
+                        '🏠 Home Cleaning', '🔧 Plumbing', '⚡ Electrical', '🛠️ Appliance Repair',
+                        '✂️ Grooming', '🐕 Pet Care', '🧹 Deep Clean', '🚿 Bathroom',
+                        '💡 Lighting', '🔌 Wiring', '🪒 Shaving', '💇 Haircut',
+                        '🐱 Cat Grooming', '🏠 Kitchen', '🛁 Pipe Repair', '⚡ Fan Repair',
+                        '🧴 Facial', '🐕 Dog Bath', '🪟 Window Clean', '🚰 Tap Fix',
+                        '💡 Switch Install', '💇‍♀️ Hair Style', '🐾 Nail Trim', '🧽 Floor Clean',
+                        '🔧 Leak Fix', '⚡ AC Repair', '🪒 Beard Trim', '🐕 Pet Wash'
+                      ]}
+                      gradientColor="hsl(var(--brand-orange))"
+                      className="opacity-80"
+                    />
+                  </div>
                 </motion.div>
               </div>
             </div>
@@ -214,20 +229,24 @@ const Index = () => {
 
               <div className="flex flex-wrap justify-center gap-4 mb-8">
                 {serviceCategories.map((service) => (
-                  <motion.button
+                  <Link
                     key={service.id}
-                    onClick={() => setSelectedService(service.id)}
-                    className={`flex items-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                      selectedService === service.id
-                        ? 'bg-gradient-brand text-white shadow-brand'
-                        : 'bg-background text-body hover:bg-gradient-brand hover:text-white border border-border'
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    to={`/services/${service.id === 'cleaning' ? 'home-cleaning' : service.id === 'pet' ? 'pet-grooming' : service.id}`}
                   >
-                    {service.icon}
-                    <span>{service.name}</span>
-                  </motion.button>
+                    <motion.button
+                      onClick={() => setSelectedService(service.id)}
+                      className={`flex items-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                        selectedService === service.id
+                          ? 'bg-gradient-brand text-white shadow-brand'
+                          : 'bg-background text-body hover:bg-gradient-brand hover:text-white border border-border'
+                      }`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {service.icon}
+                      <span>{service.name}</span>
+                    </motion.button>
+                  </Link>
                 ))}
               </div>
 

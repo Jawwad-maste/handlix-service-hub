@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { ArrowRight, Home, Wrench, Zap, Scissors, Dog, Cog } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer'; 
@@ -9,6 +10,19 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { ServiceCard } from '@/components/ServiceCard';
 
 const Services = () => {
+  const { category } = useParams();
+
+  useEffect(() => {
+    if (category) {
+      // Wait for page to render, then scroll to the specific category
+      setTimeout(() => {
+        const element = document.getElementById(`category-${category}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [category]);
   const serviceCategories = [
     {
       id: 'home-cleaning',
@@ -114,6 +128,7 @@ const Services = () => {
               {serviceCategories.map((category, index) => (
                 <motion.div
                   key={category.id}
+                  id={`category-${category.id}`}
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}

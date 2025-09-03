@@ -29,23 +29,27 @@ const LoadingOverlay = ({ onComplete, variant = 'beat' }: LoadingOverlayProps) =
     const letters = ['H', 'A', 'N', 'D', 'L', 'I', 'X'];
     
     return (
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center justify-center space-x-1">
         {letters.map((letter, index) => (
           <motion.span
             key={letter}
-            className="text-6xl font-black text-gradient"
-            initial={{ opacity: 0, rotateY: -90, y: 50 }}
+            className="text-6xl font-black text-white"
+            initial={{ 
+              opacity: index === 0 ? 1 : 0, 
+              y: index === 0 ? 0 : 50, 
+              scale: index === 0 ? 1 : 0.5,
+              x: index === 0 ? 0 : -60
+            }}
             animate={{ 
               opacity: 1, 
-              rotateY: 0, 
-              y: 0,
+              y: 0, 
+              scale: 1,
+              x: 0
             }}
             transition={{
-              delay: index * 0.1,
               duration: 0.5,
-              type: "spring",
-              stiffness: 100,
-              damping: 10
+              delay: index === 0 ? 0 : 0.5 + (index - 1) * 0.15,
+              ease: "backOut"
             }}
           >
             {letter}
