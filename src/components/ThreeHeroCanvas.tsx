@@ -1,0 +1,221 @@
+import { Suspense, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, Text3D, Center, useProgress, Html } from '@react-three/drei';
+import { motion } from 'framer-motion';
+import * as THREE from 'three';
+
+// Loading component for 3D canvas
+const Loader = () => {
+  const { progress } = useProgress();
+  return (
+    <Html center>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center"
+      >
+        <div className="w-16 h-16 bg-gradient-brand rounded-full flex items-center justify-center mb-4 mx-auto">
+          <span className="text-white font-bold text-2xl">H</span>
+        </div>
+        <div className="text-body-light">Loading 3D Scene... {Math.round(progress)}%</div>
+      </motion.div>
+    </Html>
+  );
+};
+
+// Service Icons as 3D Objects
+const ServiceIcon = ({ position, children, color = "#FF6A00" }: { 
+  position: [number, number, number]; 
+  children: React.ReactNode; 
+  color?: string; 
+}) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime) * 0.3;
+      meshRef.current.rotation.y += 0.01;
+    }
+  });
+
+  return (
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+      <mesh ref={meshRef} position={position}>
+        <boxGeometry args={[0.8, 0.8, 0.8]} />
+        <meshStandardMaterial color={color} />
+        <Center>
+          <Text3D
+            font="/fonts/helvetiker_regular.typeface.json"
+            size={0.3}
+            height={0.1}
+            curveSegments={12}
+          >
+            {children}
+            <meshStandardMaterial color="white" />
+          </Text3D>
+        </Center>
+      </mesh>
+    </Float>
+  );
+};
+
+// Central H Logo
+const CentralLogo = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.2;
+      meshRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.1;
+    }
+  });
+
+  return (
+    <Float speed={1} rotationIntensity={0.2} floatIntensity={0.3}>
+      <mesh ref={meshRef}>
+        <cylinderGeometry args={[1.5, 1.5, 0.3, 32]} />
+        <meshStandardMaterial 
+          color="#FF6A00"
+          metalness={0.3}
+          roughness={0.2}
+        />
+        <Center>
+          <Text3D
+            font="/fonts/helvetiker_bold.typeface.json"
+            size={1}
+            height={0.2}
+            curveSegments={12}
+          >
+            H
+            <meshStandardMaterial color="white" />
+          </Text3D>
+        </Center>
+      </mesh>
+    </Float>
+  );
+};
+
+// Main 3D Scene
+const Scene = () => {
+  return (
+    <>
+      {/* Lighting */}
+      <ambientLight intensity={0.4} />
+      <directionalLight 
+        position={[10, 10, 5]} 
+        intensity={1} 
+        castShadow 
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#FF2E63" />
+      
+      {/* Central H Logo */}
+      <CentralLogo />
+
+      {/* Service Icons orbiting around */}
+      <ServiceIcon position={[3, 2, 0]} color="#FF6A00">🧹</ServiceIcon>
+      <ServiceIcon position={[-3, 1, 2]} color="#FF2E63">🔧</ServiceIcon>
+      <ServiceIcon position={[2, -2, -1]} color="#6A11CB">💡</ServiceIcon>
+      <ServiceIcon position={[-2, -1, -2]} color="#FF6A00">✂️</ServiceIcon>
+      <ServiceIcon position={[0, 3, 1]} color="#FF2E63">🐕</ServiceIcon>
+    </>
+  );
+};
+
+// Fallback component for mobile/low-power devices
+const FallbackGraphic = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8 }}
+      className="flex items-center justify-center h-full"
+    >
+      <div className="relative">
+        <motion.div
+          className="w-32 h-32 bg-gradient-brand rounded-3xl flex items-center justify-center"
+          animate={{
+            rotateY: [0, 360],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            rotateY: { duration: 10, repeat: Infinity, ease: "linear" },
+            scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+          }}
+        >
+          <span className="text-white font-black text-6xl">H</span>
+        </motion.div>
+
+        {/* Floating service icons */}
+        {[
+          { icon: '🧹', delay: 0, x: 40, y: -30 },
+          { icon: '🔧', delay: 0.5, x: -40, y: -20 },
+          { icon: '💡', delay: 1, x: 30, y: 40 },
+          { icon: '✂️', delay: 1.5, x: -35, y: 35 },
+          { icon: '🐕', delay: 2, x: 0, y: -50 },
+        ].map((item, index) => (
+          <motion.div
+            key={index}
+            className="absolute w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg text-xl"
+            style={{ 
+              left: `calc(50% + ${item.x}px)`, 
+              top: `calc(50% + ${item.y}px)`,
+              transform: 'translate(-50%, -50%)'
+            }}
+            animate={{
+              y: [0, -10, 0],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{
+              delay: item.delay,
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {item.icon}
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
+
+const ThreeHeroCanvas = ({ className = "" }: { className?: string }) => {
+  // Detect if device should use fallback (mobile, low-power, etc.)
+  const shouldUseFallback = () => {
+    if (typeof window === 'undefined') return true;
+    
+    const isMobile = window.innerWidth < 768;
+    const isLowPower = 'connection' in navigator && 
+      // @ts-ignore - connection API not fully typed
+      navigator.connection?.effectiveType?.includes('2g');
+    
+    return isMobile || isLowPower;
+  };
+
+  if (shouldUseFallback()) {
+    return (
+      <div className={`w-full h-full min-h-[400px] ${className}`}>
+        <FallbackGraphic />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`w-full h-full min-h-[400px] ${className}`}>
+      <Canvas
+        camera={{ position: [0, 0, 8], fov: 50 }}
+        gl={{ antialias: true, alpha: true }}
+        dpr={Math.min(window.devicePixelRatio, 2)}
+      >
+        <Suspense fallback={<Loader />}>
+          <Scene />
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+};
+
+export { ThreeHeroCanvas };
