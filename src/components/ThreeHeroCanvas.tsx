@@ -1,14 +1,12 @@
 import { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Center, useProgress, Html } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
 // Loading component for 3D canvas
 const Loader = () => {
-  const { progress } = useProgress();
   return (
-    <Html center>
+    <div className="absolute inset-0 flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -17,9 +15,9 @@ const Loader = () => {
         <div className="w-16 h-16 bg-gradient-brand rounded-full flex items-center justify-center mb-4 mx-auto">
           <span className="text-white font-bold text-2xl">H</span>
         </div>
-        <div className="text-body-light">Loading 3D Scene... {Math.round(progress)}%</div>
+        <div className="text-body-light">Loading 3D Scene...</div>
       </motion.div>
-    </Html>
+    </div>
   );
 };
 
@@ -39,18 +37,16 @@ const ServiceIcon = ({ position, color = "#FF6A00", icon }: {
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <mesh ref={meshRef} position={position}>
-        <sphereGeometry args={[0.5, 16, 16]} />
-        <meshStandardMaterial 
-          color={color} 
-          metalness={0.3}
-          roughness={0.4}
-          emissive={color}
-          emissiveIntensity={0.1}
-        />
-      </mesh>
-    </Float>
+    <mesh ref={meshRef} position={position}>
+      <sphereGeometry args={[0.5, 16, 16]} />
+      <meshStandardMaterial 
+        color={color} 
+        metalness={0.3}
+        roughness={0.4}
+        emissive={color}
+        emissiveIntensity={0.1}
+      />
+    </mesh>
   );
 };
 
@@ -66,42 +62,40 @@ const CentralLogo = () => {
   });
 
   return (
-    <Float speed={1} rotationIntensity={0.2} floatIntensity={0.3}>
-      <group ref={meshRef}>
-        {/* Central cylinder */}
-        <mesh>
-          <cylinderGeometry args={[1.2, 1.2, 0.3, 32]} />
-          <meshStandardMaterial 
-            color="#FF6A00"
-            metalness={0.6}
-            roughness={0.2}
-            emissive="#FF6A00"
-            emissiveIntensity={0.2}
-          />
+    <group ref={meshRef}>
+      {/* Central cylinder */}
+      <mesh>
+        <cylinderGeometry args={[1.2, 1.2, 0.3, 32]} />
+        <meshStandardMaterial 
+          color="#FF6A00"
+          metalness={0.6}
+          roughness={0.2}
+          emissive="#FF6A00"
+          emissiveIntensity={0.2}
+        />
+      </mesh>
+      
+      {/* H-shaped extrusion using box geometries */}
+      <group>
+        {/* Left vertical bar */}
+        <mesh position={[-0.4, 0, 0.2]}>
+          <boxGeometry args={[0.2, 1.2, 0.2]} />
+          <meshStandardMaterial color="white" />
         </mesh>
         
-        {/* H-shaped extrusion using box geometries */}
-        <group>
-          {/* Left vertical bar */}
-          <mesh position={[-0.4, 0, 0.2]}>
-            <boxGeometry args={[0.2, 1.2, 0.2]} />
-            <meshStandardMaterial color="white" />
-          </mesh>
-          
-          {/* Right vertical bar */}
-          <mesh position={[0.4, 0, 0.2]}>
-            <boxGeometry args={[0.2, 1.2, 0.2]} />
-            <meshStandardMaterial color="white" />
-          </mesh>
-          
-          {/* Horizontal crossbar */}
-          <mesh position={[0, 0, 0.2]}>
-            <boxGeometry args={[0.8, 0.2, 0.2]} />
-            <meshStandardMaterial color="white" />
-          </mesh>
-        </group>
+        {/* Right vertical bar */}
+        <mesh position={[0.4, 0, 0.2]}>
+          <boxGeometry args={[0.2, 1.2, 0.2]} />
+          <meshStandardMaterial color="white" />
+        </mesh>
+        
+        {/* Horizontal crossbar */}
+        <mesh position={[0, 0, 0.2]}>
+          <boxGeometry args={[0.8, 0.2, 0.2]} />
+          <meshStandardMaterial color="white" />
+        </mesh>
       </group>
-    </Float>
+    </group>
   );
 };
 
