@@ -1,6 +1,6 @@
 import { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Text3D, Center, useProgress, Html } from '@react-three/drei';
+import { Float, Center, useProgress, Html } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
@@ -23,17 +23,17 @@ const Loader = () => {
   );
 };
 
-// Service Icons as 3D Objects
-const ServiceIcon = ({ position, children, color = "#FF6A00" }: { 
+// Service Icons as 3D Objects - simplified without fonts
+const ServiceIcon = ({ position, color = "#FF6A00", icon }: { 
   position: [number, number, number]; 
-  children: React.ReactNode; 
-  color?: string; 
+  color?: string;
+  icon: string;
 }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime) * 0.3;
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime + position[0]) * 0.3;
       meshRef.current.rotation.y += 0.01;
     }
   });
@@ -41,27 +41,22 @@ const ServiceIcon = ({ position, children, color = "#FF6A00" }: {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={meshRef} position={position}>
-        <boxGeometry args={[0.8, 0.8, 0.8]} />
-        <meshStandardMaterial color={color} />
-        <Center>
-          <Text3D
-            font="/fonts/helvetiker_regular.typeface.json"
-            size={0.3}
-            height={0.1}
-            curveSegments={12}
-          >
-            {children}
-            <meshStandardMaterial color="white" />
-          </Text3D>
-        </Center>
+        <sphereGeometry args={[0.5, 16, 16]} />
+        <meshStandardMaterial 
+          color={color} 
+          metalness={0.3}
+          roughness={0.4}
+          emissive={color}
+          emissiveIntensity={0.1}
+        />
       </mesh>
     </Float>
   );
 };
 
-// Central H Logo
+// Central H Logo - simplified geometry
 const CentralLogo = () => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -72,25 +67,40 @@ const CentralLogo = () => {
 
   return (
     <Float speed={1} rotationIntensity={0.2} floatIntensity={0.3}>
-      <mesh ref={meshRef}>
-        <cylinderGeometry args={[1.5, 1.5, 0.3, 32]} />
-        <meshStandardMaterial 
-          color="#FF6A00"
-          metalness={0.3}
-          roughness={0.2}
-        />
-        <Center>
-          <Text3D
-            font="/fonts/helvetiker_bold.typeface.json"
-            size={1}
-            height={0.2}
-            curveSegments={12}
-          >
-            H
+      <group ref={meshRef}>
+        {/* Central cylinder */}
+        <mesh>
+          <cylinderGeometry args={[1.2, 1.2, 0.3, 32]} />
+          <meshStandardMaterial 
+            color="#FF6A00"
+            metalness={0.6}
+            roughness={0.2}
+            emissive="#FF6A00"
+            emissiveIntensity={0.2}
+          />
+        </mesh>
+        
+        {/* H-shaped extrusion using box geometries */}
+        <group>
+          {/* Left vertical bar */}
+          <mesh position={[-0.4, 0, 0.2]}>
+            <boxGeometry args={[0.2, 1.2, 0.2]} />
             <meshStandardMaterial color="white" />
-          </Text3D>
-        </Center>
-      </mesh>
+          </mesh>
+          
+          {/* Right vertical bar */}
+          <mesh position={[0.4, 0, 0.2]}>
+            <boxGeometry args={[0.2, 1.2, 0.2]} />
+            <meshStandardMaterial color="white" />
+          </mesh>
+          
+          {/* Horizontal crossbar */}
+          <mesh position={[0, 0, 0.2]}>
+            <boxGeometry args={[0.8, 0.2, 0.2]} />
+            <meshStandardMaterial color="white" />
+          </mesh>
+        </group>
+      </group>
     </Float>
   );
 };
@@ -100,25 +110,26 @@ const Scene = () => {
   return (
     <>
       {/* Lighting */}
-      <ambientLight intensity={0.4} />
+      <ambientLight intensity={0.6} />
       <directionalLight 
         position={[10, 10, 5]} 
-        intensity={1} 
+        intensity={1.2} 
         castShadow 
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
       />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#FF2E63" />
+      <pointLight position={[10, -5, 10]} intensity={0.3} color="#6A11CB" />
       
       {/* Central H Logo */}
       <CentralLogo />
 
       {/* Service Icons orbiting around */}
-      <ServiceIcon position={[3, 2, 0]} color="#FF6A00">🧹</ServiceIcon>
-      <ServiceIcon position={[-3, 1, 2]} color="#FF2E63">🔧</ServiceIcon>
-      <ServiceIcon position={[2, -2, -1]} color="#6A11CB">💡</ServiceIcon>
-      <ServiceIcon position={[-2, -1, -2]} color="#FF6A00">✂️</ServiceIcon>
-      <ServiceIcon position={[0, 3, 1]} color="#FF2E63">🐕</ServiceIcon>
+      <ServiceIcon position={[3, 2, 0]} color="#FF6A00" icon="cleaning" />
+      <ServiceIcon position={[-3, 1, 2]} color="#FF2E63" icon="plumbing" />
+      <ServiceIcon position={[2, -2, -1]} color="#6A11CB" icon="electrical" />
+      <ServiceIcon position={[-2, -1, -2]} color="#FF6A00" icon="grooming" />
+      <ServiceIcon position={[0, 3, 1]} color="#FF2E63" icon="pet" />
     </>
   );
 };
