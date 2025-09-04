@@ -28,44 +28,44 @@ const Services = () => {
       id: 'home-cleaning',
       title: 'Home Cleaning',
       icon: <Home className="w-12 h-12" />,
-      description: 'Deep cleaning, regular maintenance, sanitization services for your home',
-      services: ['Deep Cleaning', 'Regular Cleaning', 'Kitchen Deep Clean'],
-      priceRange: 'From ₹499',
+      description: 'Deep Cleaning – Complete home cleaning (₹1499 onwards), Kitchen Cleaning – Hygienic cleaning (₹499 onwards), Bathroom Cleaning – Scrubbing & sanitization (₹399 onwards)',
+      services: ['Deep Cleaning', 'Kitchen Cleaning', 'Bathroom Cleaning'],
+      priceRange: 'From ₹399',
       gradient: 'from-blue-500 to-cyan-500'
     },
     {
       id: 'plumbing', 
       title: 'Plumbing Services',
       icon: <Wrench className="w-12 h-12" />,
-      description: 'Pipe repairs, installations, leak fixes, and emergency plumbing services',
-      services: ['Leak Repair', 'Pipe Installation', 'Drain Cleaning'],
+      description: 'Tap/Faucet Repair – Fixing leaks (₹199 onwards), Leak Fixing – Pipe leakage repair (₹249 onwards), Pipe Installation – New installations (₹399 onwards)',
+      services: ['Tap/Faucet Repair', 'Leak Fixing', 'Pipe Installation'],
       priceRange: 'From ₹299',
       gradient: 'from-indigo-500 to-purple-500'
     },
     {
       id: 'electrical',
-      title: 'Electrical Work',
+      title: 'Electrical Repairs',
       icon: <Zap className="w-12 h-12" />,
-      description: 'Wiring, switch installation, fan repair by certified electricians',
-      services: ['Switch Installation', 'Fan Repair', 'Wiring Work'],
-      priceRange: 'From ₹199',
+      description: 'Fan/Light Repair – Installations & fixes (₹199 onwards), Wiring Solutions – Safe wiring (₹299 onwards), Switch & Socket Replacement (₹149 onwards)',
+      services: ['Fan/Light Repair', 'Wiring Solutions', 'Switch & Socket Replacement'],
+      priceRange: 'From ₹149',
       gradient: 'from-yellow-500 to-orange-500'
     },
     {
       id: 'appliance-repair',
       title: 'Appliance Repair',
       icon: <Cog className="w-12 h-12" />,
-      description: 'Repair and maintenance of home appliances, AC, refrigerator, washing machine',
-      services: ['AC Repair', 'Refrigerator Repair', 'Washing Machine Repair'],
+      description: 'AC Service/Repair (₹499 onwards), Washing Machine Repair (₹399 onwards), Refrigerator Repair (₹499 onwards)',
+      services: ['AC Service/Repair', 'Washing Machine Repair', 'Refrigerator Repair'],
       priceRange: 'From ₹399',
       gradient: 'from-green-500 to-teal-500'
     },
     {
       id: 'grooming',
-      title: 'Personal Grooming',
+      title: 'Grooming',
       icon: <Scissors className="w-12 h-12" />,
-      description: 'Haircut, beard styling, facial treatments in the comfort of your home',
-      services: ['Haircut', 'Beard Styling', 'Facial Treatment'],
+      description: 'Men\'s Haircut & Styling (₹199 onwards), Women\'s Makeup & Styling (₹799 onwards), Mehndi Artist (₹499 onwards)',
+      services: ['Men\'s Haircut & Styling', 'Women\'s Makeup & Styling', 'Mehndi Artist'],
       priceRange: 'From ₹399', 
       gradient: 'from-pink-500 to-rose-500'
     },
@@ -73,9 +73,9 @@ const Services = () => {
       id: 'pet-grooming',
       title: 'Pet Grooming',
       icon: <Dog className="w-12 h-12" />,
-      description: 'Professional pet grooming services for dogs and cats',
-      services: ['Pet Bath', 'Nail Trimming', 'Hair Cutting'],
-      priceRange: 'From ₹599',
+      description: 'Dog Grooming – Bathing, trimming (₹499 onwards), Cat Grooming – Nail clipping, coat cleaning (₹449 onwards)',
+      services: ['Dog Grooming', 'Cat Grooming'],
+      priceRange: 'From ₹449',
       gradient: 'from-violet-500 to-purple-500'
     }
   ];
@@ -108,7 +108,7 @@ const Services = () => {
                 Explore Our Wide Range of<br />Professional Services
               </h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                From home cleaning to appliance repair, we've got all your household needs covered with trusted professionals in Aligarh.
+                Explore our wide range of professional services, designed to make your life easier. Click on "Book Now" to instantly connect with us on WhatsApp.
               </p>
             </motion.div>
           </div>

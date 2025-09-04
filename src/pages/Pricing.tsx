@@ -108,135 +108,250 @@ const Pricing = () => {
 
   const pricingData = [
     {
-      id: 'deep-cleaning',
-      title: 'Deep Home Cleaning',
+      id: 'kitchen-cleaning',
+      title: 'Kitchen Cleaning',
       price: '₹499',
-      duration: '2-4 hours',
+      duration: 'onwards',
       category: 'cleaning',
       features: [
-        'Complete home sanitization',
-        'Kitchen deep cleaning',
-        'Bathroom scrubbing',
-        'Floor mopping & vacuuming',
+        'Complete kitchen sanitization',
+        'Stove & chimney cleaning',
+        'Cabinet & countertop cleaning',
+        'Floor mopping & degreasing',
         'Eco-friendly products',
         '100% satisfaction guarantee'
       ],
-      disclaimer: 'Price may vary based on home size'
+      disclaimer: 'Price may vary based on kitchen size'
     },
     {
-      id: 'regular-cleaning',
-      title: 'Regular Cleaning',
-      price: '₹299',
-      duration: '1-2 hours', 
+      id: 'bathroom-cleaning',
+      title: 'Bathroom Cleaning',
+      price: '₹399',
+      duration: 'onwards', 
       category: 'cleaning',
       features: [
-        'Weekly/Monthly cleaning',
-        'Dusting & organizing',
-        'Floor cleaning',
-        'Bathroom basic clean',
-        'Trash removal',
-        'Regular maintenance'
+        'Deep scrubbing & sanitization',
+        'Toilet & basin cleaning',
+        'Tile & grout cleaning',
+        'Mirror & fixture polishing',
+        'Anti-bacterial treatment',
+        'Drain cleaning'
       ]
     },
     {
-      id: 'plumbing-basic',
-      title: 'Basic Plumbing',
-      price: '₹299',
-      duration: '30min-1hr',
+      id: 'full-home-deep-clean',
+      title: 'Full Home Deep Clean',
+      price: '₹1499',
+      duration: 'onwards',
+      category: 'cleaning',
+      features: [
+        'Complete home sanitization',
+        'All rooms deep cleaning',
+        'Kitchen & bathroom included',
+        'Floor mopping & vacuuming',
+        'Dusting & organizing',
+        'Window & balcony cleaning'
+      ]
+    },
+    {
+      id: 'tap-faucet-repair',
+      title: 'Tap/Faucet Repair',
+      price: '₹199',
+      duration: 'onwards',
       category: 'plumbing', 
       features: [
-        'Leak detection & repair',
+        'Leak detection & fixing',
         'Tap installation',
-        'Drain unclogging',
-        'Basic pipe repair',
-        'Water pressure check'
+        'Faucet replacement',
+        'Water pressure adjustment',
+        'Quick diagnosis'
       ]
     },
     {
-      id: 'plumbing-emergency',
-      title: 'Emergency Plumbing',
-      price: '₹599',
-      duration: '24/7 service',
+      id: 'leak-fixing',
+      title: 'Leak Fixing',
+      price: '₹249',
+      duration: 'onwards',
       category: 'plumbing',
       features: [
-        'Immediate response',
-        'Major leak repair',
-        'Pipe burst fixing',
-        'Emergency drain cleaning',
-        '24/7 availability',
-        'Priority service'
+        'Pipe leak detection',
+        'Joint & connection repair',
+        'Wall & ceiling leak fixing',
+        'Water damage prevention',
+        'Emergency response available'
       ]
     },
     {
-      id: 'electrical-basic',
-      title: 'Basic Electrical',
+      id: 'pipe-installation',
+      title: 'Pipe Installation',
+      price: '₹399',
+      duration: 'onwards',
+      category: 'plumbing',
+      features: [
+        'New pipe installation',
+        'Water line setup',
+        'Bathroom pipe work',
+        'Kitchen plumbing',
+        'Quality materials used',
+        'Professional installation'
+      ]
+    },
+    {
+      id: 'fan-light-repair',
+      title: 'Fan/Light Repair',
       price: '₹199',
-      duration: '30-60 mins',
+      duration: 'onwards',
       category: 'electrical',
       features: [
-        'Switch installation',
-        'Socket repair',
-        'Bulb replacement',
-        'Basic wiring check',
+        'Ceiling fan repair',
+        'Light fixture installation',
+        'Bulb & tube replacement',
+        'Fan speed control fix',
         'Safety inspection'
       ]
     },
     {
-      id: 'electrical-advanced',
-      title: 'Advanced Electrical',
-      price: '₹899', 
-      duration: '2-4 hours',
+      id: 'switch-socket-replace',
+      title: 'Switch/Socket Replace',
+      price: '₹149', 
+      duration: 'onwards',
       category: 'electrical',
       features: [
-        'Complete rewiring',
-        'Circuit installation', 
-        'Panel upgrades',
-        'Safety systems setup',
-        'Certified electrician',
-        'Warranty included'
+        'Switch replacement',
+        'Socket installation',
+        'Modular switch upgrade',
+        'USB socket installation',
+        'Safety testing'
       ]
     },
     {
-      id: 'grooming-basic',
-      title: 'Basic Grooming',
-      price: '₹399',
-      duration: '45 mins',
-      category: 'grooming',
+      id: 'wiring-fix',
+      title: 'Wiring Fix',
+      price: '₹299',
+      duration: 'onwards',
+      category: 'electrical',
       features: [
-        'Haircut & styling',
-        'Beard trimming',
-        'Basic facial',
-        'Professional tools',
-        'Home service'
+        'Electrical wiring repair',
+        'Short circuit fixing',
+        'Wire replacement',
+        'Connection troubleshooting',
+        'Safety compliance check',
+        'Certified electrician service'
       ]
     },
     {
-      id: 'grooming-premium', 
-      title: 'Premium Grooming',
-      price: '₹799',
-      duration: '1-2 hours',
-      category: 'grooming',
-      features: [
-        'Complete makeover',
-        'Advanced facial treatment',
-        'Hair spa & styling',
-        'Beard design & care',
-        'Premium products',
-        'Consultation included'
-      ]
-    },
-    {
-      id: 'ac-service',
+      id: 'ac-service-repair',
       title: 'AC Service & Repair',
-      price: '₹599',
-      duration: '1-2 hours',
+      price: '₹499',
+      duration: 'onwards',
       category: 'appliance',
       features: [
         'Complete AC cleaning',
         'Gas refilling',
         'Filter replacement',
-        'Performance check',
-        '6 month warranty'
+        'Cooling performance check',
+        '6 month service warranty'
+      ]
+    },
+    {
+      id: 'washing-machine-repair',
+      title: 'Washing Machine Repair',
+      price: '₹399',
+      duration: 'onwards',
+      category: 'appliance',
+      features: [
+        'Motor & pump repair',
+        'Drum & agitator fixing',
+        'Control panel repair',
+        'Water inlet/outlet fix',
+        'Performance optimization'
+      ]
+    },
+    {
+      id: 'refrigerator-repair',
+      title: 'Refrigerator Repair',
+      price: '₹499',
+      duration: 'onwards',
+      category: 'appliance',
+      features: [
+        'Cooling system repair',
+        'Compressor fixing',
+        'Thermostat adjustment',
+        'Door seal replacement',
+        'Energy efficiency check'
+      ]
+    },
+    {
+      id: 'mens-haircut',
+      title: "Men's Haircut",
+      price: '₹199',
+      duration: 'onwards',
+      category: 'grooming',
+      features: [
+        'Haircut & styling',
+        'Beard trimming',
+        'Hair washing',
+        'Professional tools',
+        'Styling consultation'
+      ]
+    },
+    {
+      id: 'womens-makeup', 
+      title: "Women's Makeup",
+      price: '₹799',
+      duration: 'onwards',
+      category: 'grooming',
+      features: [
+        'Professional makeup',
+        'Bridal makeup available',
+        'Hair styling included',
+        'Event makeup',
+        'Premium products',
+        'Touch-up kit provided'
+      ]
+    },
+    {
+      id: 'mehndi-artist',
+      title: 'Mehndi Artist',
+      price: '₹499',
+      duration: 'onwards',
+      category: 'grooming',
+      features: [
+        'Traditional mehndi designs',
+        'Bridal mehndi available',
+        'Arabic & Indian patterns',
+        'Natural henna used',
+        'Custom design consultation'
+      ]
+    },
+    {
+      id: 'dog-grooming',
+      title: 'Dog Grooming',
+      price: '₹499',
+      duration: 'onwards',
+      category: 'pet',
+      features: [
+        'Bathing & shampooing',
+        'Hair trimming & styling',
+        'Nail clipping',
+        'Ear cleaning',
+        'Gentle handling',
+        'All dog breeds welcome'
+      ]
+    },
+    {
+      id: 'cat-grooming',
+      title: 'Cat Grooming',
+      price: '₹449',
+      duration: 'onwards',
+      category: 'pet',
+      features: [
+        'Gentle bathing',
+        'Coat brushing & detangling',
+        'Nail trimming',
+        'Eye & ear cleaning',
+        'Stress-free handling',
+        'Cat-friendly approach'
       ]
     }
   ];
