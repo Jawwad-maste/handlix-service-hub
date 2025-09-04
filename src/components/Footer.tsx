@@ -63,7 +63,12 @@ const Footer = () => {
                 {socialLinks.map((social) => (
                   <motion.a
                     key={social.label}
-                    href={social.href}
+                    href={social.label === 'Instagram' ? 'https://www.instagram.com/handlix.in?igsh=ZHhkZXMwanRwanFo' : 
+                          social.label === 'Twitter' ? 'https://x.com/HandlixHQ?t=a6VBFF5yy8c7xhHBoyOGXw&s=09' :
+                          social.label === 'LinkedIn' ? 'https://www.linkedin.com/in/maaz-bin-jabal?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' : 
+                          social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors focus-ring"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}

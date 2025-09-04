@@ -282,7 +282,12 @@ Message: ${formData.message}`;
                     {socialLinks.map((social, index) => (
                       <motion.a
                         key={social.label}
-                        href={social.href}
+                        href={social.label === 'Instagram' ? 'https://www.instagram.com/handlix.in?igsh=ZHhkZXMwanRwanFo' : 
+                              social.label === 'Twitter' ? 'https://x.com/HandlixHQ?t=a6VBFF5yy8c7xhHBoyOGXw&s=09' :
+                              social.label === 'LinkedIn' ? 'https://www.linkedin.com/in/maaz-bin-jabal?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' : 
+                              social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="w-12 h-12 bg-background-alt rounded-xl flex items-center justify-center text-body hover:bg-gradient-brand hover:text-white transition-all duration-300 border border-border hover:border-transparent focus-ring"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}

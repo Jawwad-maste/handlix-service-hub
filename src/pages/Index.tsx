@@ -467,12 +467,12 @@ const Index = () => {
               <div className="absolute bottom-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl animate-pulse-glow" />
             </div>
             
-            <div className="container-custom text-center relative z-10">
+            <div className="container-custom relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="space-y-8"
+                className="space-y-8 text-center"
               >
                 <h2 className="text-4xl md:text-5xl font-black">
                   Need a service today?
@@ -480,14 +480,16 @@ const Index = () => {
                 <p className="text-xl text-white/90 max-w-2xl mx-auto">
                   Book instantly on WhatsApp and get connected with trusted professionals in minutes!
                 </p>
-                <GradientButton
-                  variant="outline"
-                  size="lg"
-                  onClick={() => openWhatsApp("Urgent Service Request")}
-                  className="bg-white text-brand-orange border-white hover:bg-white/90 text-xl px-12"
-                >
-                  Book Now
-                </GradientButton>
+                <div className="flex justify-center">
+                  <GradientButton
+                    variant="outline"
+                    size="lg"
+                    onClick={() => openWhatsApp("Urgent Service Request")}
+                    className="bg-white text-brand-orange border-white hover:bg-white/90 hover:text-black text-xl px-12"
+                  >
+                    Book Now
+                  </GradientButton>
+                </div>
               </motion.div>
             </div>
           </section>
@@ -501,7 +503,22 @@ const Index = () => {
                 className="mb-16"
               />
 
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="relative overflow-hidden">
+                <motion.div
+                  className="flex gap-8"
+                  animate={{
+                    x: [0, -100 * 6 + "vw"]
+                  }}
+                  transition={{
+                    x: {
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      duration: 30,
+                      ease: "linear"
+                    }
+                  }}
+                  whileHover={{ animationPlayState: "paused" }}
+                >
                 {[
                   {
                     name: "Priya Sharma",
@@ -520,6 +537,24 @@ const Index = () => {
                     service: "Grooming",
                     rating: 4,
                     comment: "Convenient home grooming service. The stylist was skilled and very professional."
+                  },
+                  {
+                    name: "Neha Verma",
+                    service: "Appliance Repair",
+                    rating: 5,
+                    comment: "The technician was skilled and polite. My AC is working perfectly now. Highly recommended!"
+                  },
+                  {
+                    name: "Sahil Khan",
+                    service: "Electrical Repairs",
+                    rating: 5,
+                    comment: "Quick and affordable. The team fixed my wiring issues safely and on time."
+                  },
+                  {
+                    name: "Ritu Singh",
+                    service: "Pet Grooming",
+                    rating: 5,
+                    comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
                   }
                 ].map((review, index) => (
                   <motion.div
@@ -528,7 +563,7 @@ const Index = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.2 }}
-                    className="bg-background-alt p-8 rounded-2xl border border-border"
+                    className="bg-background-alt p-8 rounded-2xl border border-border flex-shrink-0 w-80"
                   >
                     <div className="flex items-center mb-4">
                       {Array.from({ length: 5 }).map((_, i) => (
@@ -545,6 +580,7 @@ const Index = () => {
                     </div>
                   </motion.div>
                 ))}
+                </motion.div>
               </div>
             </div>
           </section>

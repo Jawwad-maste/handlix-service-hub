@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, RotateCcw } from 'lucide-react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppFloat } from '@/components/WhatsAppFloat';
@@ -96,6 +98,32 @@ const PricingCard = ({
 const Pricing = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash-based navigation from Services page
+    if (location.hash) {
+      const hash = location.hash.slice(1); // Remove the #
+      const categoryMap = {
+        'cleaning': 'cleaning',
+        'plumbing': 'plumbing',
+        'electrical': 'electrical',
+        'appliance': 'appliance',
+        'grooming': 'grooming'
+      };
+      
+      if (categoryMap[hash as keyof typeof categoryMap]) {
+        setActiveCategory(hash);
+        // Scroll to the pricing section after a short delay
+        setTimeout(() => {
+          const pricingSection = document.querySelector('[data-pricing-section]');
+          if (pricingSection) {
+            pricingSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    }
+  }, [location.hash]);
 
   const categories = [
     { id: 'all', name: 'All Services' },
@@ -415,6 +443,7 @@ const Pricing = () => {
             {/* Pricing Grid */}
             <AnimatePresence mode="wait">
               <motion.div
+                data-pricing-section
                 key={activeCategory}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

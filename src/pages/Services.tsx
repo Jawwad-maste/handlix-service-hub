@@ -134,9 +134,20 @@ const Services = () => {
                   transition={{ delay: index * 0.1 }}
                   className="group"
                 >
-                  <Link
-                    to={`/services/${category.id}`}
-                    className="block bg-background-alt rounded-3xl p-8 hover:shadow-brand-lg transition-all duration-300 border border-border hover:border-brand-orange card-hover"
+                  <div
+                    onClick={() => {
+                      const categoryMap = {
+                        'home-cleaning': 'cleaning',
+                        'plumbing': 'plumbing', 
+                        'electrical': 'electrical',
+                        'appliance-repair': 'appliance',
+                        'grooming': 'grooming',
+                        'pet-grooming': 'grooming'
+                      };
+                      const targetCategory = categoryMap[category.id as keyof typeof categoryMap] || 'all-services';
+                      window.location.href = `/pricing#${targetCategory}`;
+                    }}
+                    className="block bg-background-alt rounded-3xl p-8 hover:shadow-brand-lg transition-all duration-300 border border-border hover:border-brand-orange card-hover cursor-pointer"
                   >
                     <div className={`w-20 h-20 bg-gradient-to-r ${category.gradient} rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
                       {category.icon}
@@ -165,7 +176,7 @@ const Services = () => {
                       </span>
                       <ArrowRight className="w-5 h-5 text-brand-orange group-hover:translate-x-2 transition-transform" />
                     </div>
-                  </Link>
+                  </div>
                 </motion.div>
               ))}
             </div>
