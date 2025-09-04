@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check, RotateCcw } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppFloat } from '@/components/WhatsAppFloat';
@@ -9,320 +9,369 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { GradientButton } from '@/components/GradientButton';
 import { openWhatsApp } from '@/utils/wa';
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: ''
-  });
+interface PricingCardProps {
+  title: string;
+  price: string;
+  duration: string;
+  features: string[];
+  disclaimer?: string;
+  category: string;
+  isFlipped: boolean;
+  onFlip: () => void;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // For now, redirect to WhatsApp with the form data
-    const message = `Hi Handlix! I'd like to get in touch.
+const PricingCard = ({ 
+  title, 
+  price, 
+  duration, 
+  features, 
+  disclaimer, 
+  category,
+  isFlipped,
+  onFlip 
+}: PricingCardProps) => {
+  return (
+    <motion.div
+      className="relative h-80 perspective-1000 cursor-pointer"
+      onClick={onFlip}
+      whileHover={{ scale: 1.05 }}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={isFlipped ? 'back' : 'front'}
+          initial={{ rotateY: isFlipped ? -180 : 0 }}
+          animate={{ rotateY: 0 }}
+          exit={{ rotateY: isFlipped ? 180 : -180 }}
+          transition={{ duration: 0.6 }}
+          className="absolute inset-0 w-full h-full backface-hidden"
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          {!isFlipped ? (
+            // Front of card
+            <div className="w-full h-full bg-background-alt rounded-3xl p-8 border border-border hover:border-brand-orange transition-colors flex flex-col justify-center items-center text-center shadow-card">
+              <h3 className="text-2xl font-bold text-heading mb-4">{title}</h3>
+              <div className="text-4xl font-black text-gradient mb-2">{price}</div>
+              <div className="text-body-light mb-6">{duration}</div>
+              <div className="text-sm text-brand-orange font-semibold bg-brand-orange/10 px-3 py-1 rounded-full">
+                Click to view details
+              </div>
+              <RotateCcw className="w-5 h-5 text-body-light mt-4 animate-pulse" />
+            </div>
+          ) : (
+            // Back of card
+            <div className="w-full h-full bg-gradient-brand rounded-3xl p-6 text-white flex flex-col justify-between shadow-brand-lg">
+              <div>
+                <h3 className="text-xl font-bold mb-4">{title}</h3>
+                <ul className="space-y-2 mb-4">
+                  {features.map((feature, index) => (
+                    <li key={index} className="flex items-start text-sm">
+                      <Check className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                {disclaimer && (
+                  <p className="text-xs text-white/80 italic">{disclaimer}</p>
+                )}
+              </div>
+              
+              <GradientButton
+                variant="outline"
+                className="bg-white/10 text-white border-white/30 hover:bg-white/20"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openWhatsApp(title);
+                }}
+              >
+                Book on WhatsApp
+              </GradientButton>
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
+const Pricing = () => {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+
+  const categories = [
+    { id: 'all', name: 'All Services' },
+    { id: 'cleaning', name: 'Cleaning' },
+    { id: 'plumbing', name: 'Plumbing' },
+    { id: 'electrical', name: 'Electrical' },
+    { id: 'grooming', name: 'Grooming' },
+    { id: 'appliance', name: 'Appliance' }
+  ];
+
+  const pricingData = [
+    {
+      id: 'kitchen-cleaning',
+      title: 'Kitchen Cleaning',
+      price: '₹499',
+      duration: 'onwards',
+      category: 'cleaning',
+      features: [
+        'Bathroom scrubbing',
 
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Service: ${formData.service}
 Message: ${formData.message}`;
-    
+        'Floor mopping & vacuuming',
+        'Eco-friendly products',
+        '100% satisfaction guarantee'
+      ],
+      disclaimer: 'Price may vary based on home size'
+    },
+    {
+      id: 'regular-cleaning',
+      title: 'Regular Cleaning',
+      price: '₹299',
+      duration: '1-2 hours', 
+      category: 'cleaning',
+      features: [
+        'Weekly/Monthly cleaning',
+        'Dusting & organizing',
+        'Floor cleaning',
+        'Bathroom basic clean',
+        'Trash removal',
+        'Regular maintenance'
+      ]
+    },
+    {
+      id: 'plumbing-basic',
+      title: 'Basic Plumbing',
+      price: '₹299',
+      duration: '30min-1hr',
+      category: 'plumbing', 
+      features: [
+        'Leak detection & repair',
+        'Tap installation',
+        'Drain unclogging',
+        'Basic pipe repair',
+        'Water pressure check'
+      ]
+    },
+    {
+      id: 'plumbing-emergency',
+      title: 'Emergency Plumbing',
+      price: '₹599',
+      duration: '24/7 service',
+      category: 'plumbing',
+      features: [
+        'Immediate response',
+        'Major leak repair',
+        'Pipe burst fixing',
+        'Emergency drain cleaning',
+        '24/7 availability',
+        'Priority service'
+      ]
+    },
+    {
+      id: 'electrical-basic',
+      title: 'Basic Electrical',
+      price: '₹199',
+      duration: '30-60 mins',
+      category: 'electrical',
+      features: [
+        'Switch installation',
+        'Socket repair',
+        'Bulb replacement',
+        'Basic wiring check',
+        'Safety inspection'
+      ]
+    },
+    {
+      id: 'electrical-advanced',
+      title: 'Advanced Electrical',
+      price: '₹899', 
+      duration: '2-4 hours',
+      category: 'electrical',
+      features: [
+        'Complete rewiring',
+        'Circuit installation', 
+        'Panel upgrades',
+        'Safety systems setup',
+        'Certified electrician',
+        'Warranty included'
+      ]
+    },
+    {
+      id: 'grooming-basic',
+      title: 'Basic Grooming',
+      price: '₹399',
+      duration: '45 mins',
+      category: 'grooming',
+      features: [
+        'Haircut & styling',
+        'Beard trimming',
+        'Basic facial',
+        'Professional tools',
+        'Home service'
+      ]
+    },
+    {
+      id: 'grooming-premium', 
+      title: 'Premium Grooming',
+      price: '₹799',
+      duration: '1-2 hours',
+      category: 'grooming',
+      features: [
+        'Complete makeover',
+        'Advanced facial treatment',
+        'Hair spa & styling',
+        'Beard design & care',
+        'Premium products',
+        'Consultation included'
+      ]
+    },
+    {
+      id: 'ac-service',
+      title: 'AC Service & Repair',
+      price: '₹599',
+      duration: '1-2 hours',
+      category: 'appliance',
+      features: [
+        'Complete AC cleaning',
+        'Gas refilling',
+        'Filter replacement',
+        'Performance check',
+        '6 month warranty'
+      ]
+    }
+  ];
+
+  const filteredPricing = activeCategory === 'all' 
+    ? pricingData 
+    : pricingData.filter(item => item.category === activeCategory);
+
+  const toggleCardFlip = (cardId: string) => {
+    setFlippedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(cardId)) {
+        newSet.delete(cardId);
+      } else {
+        newSet.add(cardId);
+      }
+      return newSet;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/919528522358?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
-  const contactInfo = [
-    {
-      icon: <MapPin className="w-8 h-8" />,
-      title: "Visit Us",
-      details: ["Aligarh, Uttar Pradesh", "India - 202001"],
-      action: "Get Directions"
-    },
-    {
-      icon: <Phone className="w-8 h-8" />,
-      title: "Call Us",
-      details: ["+91 95285 22358", "Available 24/7"],
-      action: "Call Now"
-    },
-    {
-      icon: <Mail className="w-8 h-8" />,
-      title: "Email Us", 
-      details: ["support@handlix.in", "We reply within 2 hours"],
-      action: "Send Email"
-    },
-    {
-      icon: <Clock className="w-8 h-8" />,
-      title: "Working Hours",
-      details: ["24/7 Emergency Services", "Regular Hours: 8 AM - 8 PM"],
-      action: "Book Service"
-    }
-  ];
-
-  const services = [
-    'Home Cleaning',
-    'Plumbing', 
-    'Electrical Work',
-    'Appliance Repair',
-    'Personal Grooming',
-    'Pet Grooming',
-    'Other'
-  ];
-
   return (
     <>
       <Helmet>
-        <title>Contact Us - Handlix | Get in Touch for Home Services in Aligarh</title>
-        <meta name="description" content="Contact Handlix for professional home services in Aligarh. Call +91 95285 22358 or email support@handlix.in. 24/7 emergency services available." />
-        <meta name="keywords" content="contact handlix, home services aligarh, emergency plumber, 24/7 service, handlix phone number" />
+        <title>Pricing - Handlix | Transparent & Affordable Home Service Rates</title>
+        <meta name="description" content="View transparent pricing for all Handlix home services in Aligarh. No hidden charges. Cleaning, plumbing, electrical, grooming, and appliance repair rates." />
+        <meta name="keywords" content="home service prices Aligarh, cleaning rates, plumber charges, electrician cost, grooming prices" />
       </Helmet>
 
       <Header />
       
       <main className="min-h-screen bg-background pt-20">
         {/* Hero */}
-        <section className="section-padding bg-gradient-brand text-white relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 right-10 w-40 h-40 bg-white rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl" />
-          </div>
-          
-          <div className="container-custom relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center space-y-6"
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black">
-                Get in Touch with<br />Our Expert Team
-              </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Need help or have questions? We're here to assist you 24/7. Contact us via phone, email, or WhatsApp for immediate support.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        <div className="grid lg:grid-cols-2 gap-0">
-          {/* Contact Form */}
-          <section className="section-padding bg-background">
-            <div className="container-custom lg:pr-8">
-              <SectionHeading
-                title="Send us a Message"
-                description="Fill out the form below and we'll get back to you as soon as possible"
-                gradientWords={["Message"]}
-                className="mb-8"
-                centered={false}
-              />
-
-              <motion.form
-                onSubmit={handleSubmit}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="space-y-6"
-              >
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-heading mb-2">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-transparent transition-all bg-background-alt"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-heading mb-2">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-transparent transition-all bg-background-alt"
-                      placeholder="+91 XXXXX XXXXX"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-heading mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-transparent transition-all bg-background-alt"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="service" className="block text-sm font-semibold text-heading mb-2">
-                    Service Required
-                  </label>
-                  <select
-                    id="service"
-                    value={formData.service}
-                    onChange={(e) => setFormData({...formData, service: e.target.value})}
-                    className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-transparent transition-all bg-background-alt"
-                  >
-                    <option value="">Select a service</option>
-                    {services.map(service => (
-                      <option key={service} value={service}>{service}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-heading mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-transparent transition-all bg-background-alt resize-none"
-                    placeholder="Tell us about your requirements..."
-                  />
-                </div>
-
-                <GradientButton
-                  type="submit"
-                  size="lg"
-                  className="w-full"
-                  icon={<Send className="w-5 h-5" />}
-                >
-                  Send Message via WhatsApp
-                </GradientButton>
-
-                <p className="text-sm text-body-light text-center">
-                  * Required fields. We'll respond within 2 hours during business hours.
-                </p>
-              </motion.form>
-            </div>
-          </section>
-
-          {/* Contact Info & Map */}
-          <section className="section-padding bg-background-alt">
-            <div className="container-custom lg:pl-8">
-              {/* Quick Contact */}
-              <div className="mb-12">
-                <SectionHeading
-                  title="Quick Contact"
-                  description="Reach out to us directly for immediate assistance"
-                  gradientWords={["Quick"]}
-                  className="mb-8"
-                  centered={false}
-                />
-
-                <div className="grid gap-6">
-                  {contactInfo.map((info, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-start space-x-4 p-6 bg-background rounded-2xl border border-border hover:border-brand-orange transition-colors"
-                    >
-                      <div className="w-12 h-12 bg-gradient-brand rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                        {info.icon}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-heading mb-2">{info.title}</h3>
-                        {info.details.map((detail, i) => (
-                          <p key={i} className="text-body-light">{detail}</p>
-                        ))}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Emergency Contact */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="bg-gradient-brand rounded-3xl p-8 text-white text-center relative overflow-hidden"
-              >
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-3 right-3 w-20 h-20 bg-white rounded-full blur-2xl" />
-                  <div className="absolute bottom-3 left-3 w-24 h-24 bg-white rounded-full blur-3xl" />
-                </div>
-                
-                <div className="relative z-10 space-y-4">
-                  <h3 className="text-2xl font-black">Emergency Services</h3>
-                  <p className="text-white/90">
-                    Need immediate help? Our emergency services are available 24/7 for urgent plumbing, electrical, and other critical issues.
-                  </p>
-                  <GradientButton
-                    variant="outline"
-                    onClick={() => openWhatsApp("Emergency Service Required")}
-                    className="bg-white/10 text-white border-white/30 hover:bg-white/20"
-                    icon={<MessageSquare className="w-5 h-5" />}
-                  >
-                    Emergency WhatsApp
-                  </GradientButton>
-                </div>
-              </motion.div>
-            </div>
-          </section>
-        </div>
-
-        {/* Service Areas */}
         <section className="section-padding">
           <div className="container-custom">
             <SectionHeading
-              title="Service Areas in Aligarh"
-              description="We provide our services across all major areas in Aligarh and surrounding regions"
-              gradientWords={["Service", "Areas"]}
+              title="Transparent & Affordable Pricing"
+              description="No hidden charges. Quality service at fair rates with complete transparency."
+              gradientWords={["Transparent", "Affordable"]}
               className="mb-12"
             />
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-background-alt rounded-2xl p-8 text-center"
-            >
-              <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4 text-body">
-                {[
-                  'Civil Lines', 'University Area', 'Ramghat Road', 'Medical College',
-                  'Delhi Gate', 'Sarai Malhi', 'Dodhpur', 'Quarsi',
-                  'Jamalpur', 'Bannadevi', 'Bichhola', 'Sasni Gate',
-                  'Manik Chowk', 'Gular Road', 'Nagla Mehtab', 'And More...'
-                ].map((area, index) => (
-                  <div
-                    key={index}
-                    className="py-2 px-4 bg-background rounded-lg border border-border hover:border-brand-orange transition-colors"
+            {/* Category Filters */}
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              {categories.map((category) => (
+                <motion.button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                    activeCategory === category.id
+                      ? 'bg-gradient-brand text-white shadow-brand'
+                      : 'bg-background-alt text-body hover:bg-gradient-brand hover:text-white border border-border'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {category.name}
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Pricing Grid */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
+                {filteredPricing.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    {area}
-                  </div>
+                    <PricingCard
+                      {...item}
+                      isFlipped={flippedCards.has(item.id)}
+                      onFlip={() => toggleCardFlip(item.id)}
+                    />
+                  </motion.div>
                 ))}
-              </div>
-              
-              <div className="mt-8 pt-8 border-t border-border">
-                <p className="text-body-light">
-                  Don't see your area listed? <span className="text-brand-orange font-semibold cursor-pointer" onClick={() => openWhatsApp("Service Area Inquiry")}>Contact us</span> to check if we serve your location.
-                </p>
-              </div>
-            </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="section-padding bg-background-alt">
+          <div className="container-custom">
+            <SectionHeading
+              title="Pricing FAQs"
+              gradientWords={["FAQs"]}
+              className="mb-12"
+            />
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[
+                {
+                  q: "Are there any hidden charges?",
+                  a: "No, we believe in complete transparency. The price you see is what you pay, with no hidden charges."
+                },
+                {
+                  q: "Can I get a custom quote?",
+                  a: "Yes! For large projects or custom requirements, contact us for a personalized quote."
+                },
+                {
+                  q: "Do you offer discounts for regular services?",
+                  a: "Yes, we offer attractive discounts for weekly and monthly service packages."
+                },
+                {
+                  q: "What if I'm not satisfied with the service?",
+                  a: "We offer a 100% satisfaction guarantee. If you're not happy, we'll make it right at no extra cost."
+                }
+              ].map((faq, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-background p-6 rounded-2xl border border-border"
+                >
+                  <h3 className="font-bold text-heading mb-3">{faq.q}</h3>
+                  <p className="text-body-light">{faq.a}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
       </main>
@@ -333,4 +382,4 @@ Message: ${formData.message}`;
   );
 };
 
-export default Contact;
+export default Pricing;
