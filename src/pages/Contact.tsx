@@ -22,14 +22,16 @@ const Contact = () => {
     e.preventDefault();
     // For now, redirect to WhatsApp with the form data
     const message = `Hi Handlix! I'd like to get in touch.
-    
+
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Service: ${formData.service}
 Message: ${formData.message}`;
     
-    openWhatsApp(`Contact Form - ${encodeURIComponent(message)}`);
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/919528522358?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   const contactInfo = [
