@@ -6,7 +6,7 @@ interface LoadingOverlayProps {
   variant?: 'beat' | 'letters';
 }
 
-const LoadingOverlay = ({ onComplete, variant = 'beat' }: LoadingOverlayProps) => {
+const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -29,32 +29,56 @@ const LoadingOverlay = ({ onComplete, variant = 'beat' }: LoadingOverlayProps) =
     const letters = ['H', 'A', 'N', 'D', 'L', 'I', 'X'];
     
     return (
-      <div className="flex items-center justify-center space-x-1">
-        {letters.map((letter, index) => (
-          <motion.span
-            key={letter}
-            className="text-6xl font-black text-white"
-            initial={{ 
-              opacity: index === 0 ? 1 : 0, 
-              y: index === 0 ? 0 : 50, 
-              scale: index === 0 ? 1 : 0.5,
-              x: index === 0 ? 0 : -60
-            }}
-            animate={{ 
-              opacity: 1, 
-              y: 0, 
-              scale: 1,
-              x: 0
-            }}
-            transition={{
-              duration: 0.5,
-              delay: index === 0 ? 0 : 0.5 + (index - 1) * 0.15,
-              ease: "backOut"
-            }}
-          >
-            {letter}
-          </motion.span>
-        ))}
+      <div className="flex items-center justify-center">
+        {letters.map((letter, index) => {
+          if (index === 0) {
+            // H logo - gradient background with white H
+            return (
+              <motion.div
+                key={letter}
+                className="w-20 h-20 bg-gradient-brand rounded-2xl flex items-center justify-center mr-2"
+                initial={{ opacity: 1, scale: 1 }}
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  scale: {
+                    duration: 1,
+                    delay: 0.5,
+                    ease: "easeInOut"
+                  }
+                }}
+              >
+                <span className="text-white font-black text-4xl">H</span>
+              </motion.div>
+            );
+          } else {
+            // Remaining letters - animate in sequence
+            return (
+              <motion.span
+                key={letter}
+                className="text-6xl font-black text-heading"
+                initial={{ 
+                  opacity: 0, 
+                  x: -30,
+                  scale: 0.5
+                }}
+                animate={{ 
+                  opacity: 1, 
+                  x: 0,
+                  scale: 1
+                }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.8 + (index - 1) * 0.15,
+                  ease: "backOut"
+                }}
+              >
+                {letter}
+              </motion.span>
+            );
+          }
+        })}
       </div>
     );
   };
@@ -87,6 +111,19 @@ const LoadingOverlay = ({ onComplete, variant = 'beat' }: LoadingOverlayProps) =
     </motion.div>
   );
 
+  // Check for reduced motion preference
+  const prefersReducedMotion = typeof window !== 'undefined' && 
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const InstantDisplay = () => (
+    <div className="flex items-center justify-center">
+      <div className="w-20 h-20 bg-gradient-brand rounded-2xl flex items-center justify-center mr-2">
+        <span className="text-white font-black text-4xl">H</span>
+      </div>
+      <span className="text-6xl font-black text-heading">ANDLIX</span>
+    </div>
+  );
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -99,13 +136,17 @@ const LoadingOverlay = ({ onComplete, variant = 'beat' }: LoadingOverlayProps) =
           aria-label="Handlix loading"
         >
           <div className="text-center">
-            {variant === 'letters' ? <LetterAnimation /> : <BeatAnimation />}
+            {prefersReducedMotion ? (
+              <InstantDisplay />
+            ) : (
+              variant === 'letters' ? <LetterAnimation /> : <BeatAnimation />
+            )}
             
             <motion.p
-              className="mt-6 text-body-light font-medium text-lg"
+              className="mt-8 text-body-light font-medium text-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 0.5 }}
+              transition={{ delay: prefersReducedMotion ? 0 : 1, duration: 0.5 }}
             >
               Handling life's essentials, effortlessly.
             </motion.p>
@@ -115,7 +156,7 @@ const LoadingOverlay = ({ onComplete, variant = 'beat' }: LoadingOverlayProps) =
               className="mt-8 w-48 h-1 bg-border rounded-full overflow-hidden mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
+              transition={{ delay: prefersReducedMotion ? 0 : 1.5 }}
             >
               <motion.div
                 className="h-full bg-gradient-brand"
