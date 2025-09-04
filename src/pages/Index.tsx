@@ -20,6 +20,116 @@ const Index = () => {
   const [showLoading, setShowLoading] = useState(true);
   const [selectedService, setSelectedService] = useState('cleaning');
 
+  // Service content for dynamic cards
+  const serviceContent = {
+    cleaning: {
+      basic: {
+        title: 'Kitchen Cleaning',
+        description: 'Complete kitchen sanitization with stove & chimney cleaning',
+        price: '₹499 onwards'
+      },
+      premium: {
+        title: 'Full Home Deep Cleaning',
+        description: 'Complete home sanitization including all rooms',
+        price: '₹1499 onwards'
+      },
+      emergency: {
+        title: 'Urgent Bathroom Cleaning',
+        description: 'Deep scrubbing & sanitization for immediate needs',
+        price: '₹399 onwards'
+      }
+    },
+    plumbing: {
+      basic: {
+        title: 'Tap/Faucet Repair',
+        description: 'Leak detection & fixing for taps and faucets',
+        price: '₹199 onwards'
+      },
+      premium: {
+        title: 'Pipe Installation',
+        description: 'New pipe installation and water line setup',
+        price: '₹399 onwards'
+      },
+      emergency: {
+        title: 'Leak Fixing',
+        description: 'Urgent pipe leakage repair with emergency support',
+        price: '₹249 onwards'
+      }
+    },
+    electrical: {
+      basic: {
+        title: 'Switch/Socket Replacement',
+        description: 'Switch replacement and socket installation',
+        price: '₹149 onwards'
+      },
+      premium: {
+        title: 'Fan/Light Repair',
+        description: 'Ceiling fan repair and light fixture installation',
+        price: '₹199 onwards'
+      },
+      emergency: {
+        title: 'Urgent Wiring Fix',
+        description: 'Emergency electrical wiring repair, 24/7 available',
+        price: '₹299 onwards'
+      }
+    },
+    appliance: {
+      basic: {
+        title: 'Washing Machine Repair',
+        description: 'Motor, pump and drum repair for washing machines',
+        price: '₹399 onwards'
+      },
+      premium: {
+        title: 'AC Service/Repair',
+        description: 'Complete AC cleaning, gas refilling and repair',
+        price: '₹499 onwards'
+      },
+      emergency: {
+        title: 'Refrigerator Breakdown',
+        description: 'Urgent refrigerator repair and cooling system fix',
+        price: '₹499 onwards'
+      }
+    },
+    grooming: {
+      basic: {
+        title: "Men's Haircut",
+        description: 'Professional haircut & styling at your home',
+        price: '₹199 onwards'
+      },
+      premium: {
+        title: "Women's Makeup & Styling",
+        description: 'Professional makeup and hair styling for events',
+        price: '₹799 onwards'
+      },
+      emergency: {
+        title: 'Mehndi Artist',
+        description: 'Traditional mehndi designs on urgent booking',
+        price: '₹499 onwards'
+      }
+    },
+    pet: {
+      basic: {
+        title: 'Cat Grooming',
+        description: 'Gentle bathing, coat brushing and nail trimming',
+        price: '₹449 onwards'
+      },
+      premium: {
+        title: 'Dog Grooming',
+        description: 'Complete bathing, trimming and styling for dogs',
+        price: '₹499 onwards'
+      },
+      emergency: {
+        title: 'Urgent Pet Care',
+        description: 'Custom on-call pet grooming service',
+        price: 'Custom pricing'
+      }
+    }
+  };
+
+  const getCurrentServiceContent = () => {
+    return serviceContent[selectedService as keyof typeof serviceContent] || serviceContent.cleaning;
+  };
+
   const serviceCategories = [
     { id: 'cleaning', name: 'Home Cleaning', icon: <Home className="w-6 h-6" /> },
     { id: 'plumbing', name: 'Plumbing', icon: <Wrench className="w-6 h-6" /> },
@@ -229,24 +339,20 @@ const Index = () => {
 
               <div className="flex flex-wrap justify-center gap-4 mb-8">
                 {serviceCategories.map((service) => (
-                  <Link
+                  <motion.button
                     key={service.id}
-                    to={`/services/${service.id === 'cleaning' ? 'home-cleaning' : service.id === 'pet' ? 'pet-grooming' : service.id}`}
+                    onClick={() => setSelectedService(service.id)}
+                    className={`flex items-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                      selectedService === service.id
+                        ? 'bg-gradient-brand text-white shadow-brand'
+                        : 'bg-background text-body hover:bg-gradient-brand hover:text-white border border-border'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <motion.button
-                      onClick={() => setSelectedService(service.id)}
-                      className={`flex items-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                        selectedService === service.id
-                          ? 'bg-gradient-brand text-white shadow-brand'
-                          : 'bg-background text-body hover:bg-gradient-brand hover:text-white border border-border'
-                      }`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {service.icon}
-                      <span>{service.name}</span>
-                    </motion.button>
-                  </Link>
+                    {service.icon}
+                    <span>{service.name}</span>
+                  </motion.button>
                 ))}
               </div>
 
@@ -257,14 +363,14 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
               >
-                {/* Service options would be dynamically loaded here */}
                 <div className="bg-background rounded-xl p-6 border border-border hover:border-brand-orange transition-colors">
-                  <h3 className="font-bold text-heading mb-2">Basic Service</h3>
-                  <p className="text-body-light mb-4">Essential service package</p>
+                  <h3 className="font-bold text-heading mb-2">{getCurrentServiceContent().basic.title}</h3>
+                  <p className="text-body-light mb-4">{getCurrentServiceContent().basic.description}</p>
+                  <div className="text-2xl font-bold text-gradient mb-4">{getCurrentServiceContent().basic.price}</div>
                   <GradientButton 
                     size="sm" 
                     variant="whatsapp"
-                    onClick={() => openWhatsApp(`Basic ${selectedService} Service`)}
+                    onClick={() => openWhatsApp(getCurrentServiceContent().basic.title)}
                   >
                     Book Now
                   </GradientButton>
@@ -272,24 +378,26 @@ const Index = () => {
                 
                 <div className="bg-background rounded-xl p-6 border-2 border-brand-orange">
                   <div className="bg-gradient-brand text-white text-xs font-bold px-2 py-1 rounded-full w-fit mb-3">POPULAR</div>
-                  <h3 className="font-bold text-heading mb-2">Premium Service</h3>
-                  <p className="text-body-light mb-4">Comprehensive service package</p>
+                  <h3 className="font-bold text-heading mb-2">{getCurrentServiceContent().premium.title}</h3>
+                  <p className="text-body-light mb-4">{getCurrentServiceContent().premium.description}</p>
+                  <div className="text-2xl font-bold text-gradient mb-4">{getCurrentServiceContent().premium.price}</div>
                   <GradientButton 
                     size="sm"
                     variant="whatsapp" 
-                    onClick={() => openWhatsApp(`Premium ${selectedService} Service`)}
+                    onClick={() => openWhatsApp(getCurrentServiceContent().premium.title)}
                   >
                     Book Now
                   </GradientButton>
                 </div>
                 
                 <div className="bg-background rounded-xl p-6 border border-border hover:border-brand-orange transition-colors">
-                  <h3 className="font-bold text-heading mb-2">Emergency Service</h3>
-                  <p className="text-body-light mb-4">Urgent service available 24/7</p>
+                  <h3 className="font-bold text-heading mb-2">{getCurrentServiceContent().emergency.title}</h3>
+                  <p className="text-body-light mb-4">{getCurrentServiceContent().emergency.description}</p>
+                  <div className="text-2xl font-bold text-gradient mb-4">{getCurrentServiceContent().emergency.price}</div>
                   <GradientButton 
                     size="sm"
                     variant="whatsapp" 
-                    onClick={() => openWhatsApp(`Emergency ${selectedService} Service`)}
+                    onClick={() => openWhatsApp(getCurrentServiceContent().emergency.title)}
                   >
                     Book Now
                   </GradientButton>
