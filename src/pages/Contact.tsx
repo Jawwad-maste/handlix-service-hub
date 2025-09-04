@@ -115,12 +115,6 @@ const Pricing = () => {
       category: 'cleaning',
       features: [
         'Bathroom scrubbing',
-
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Service: ${formData.service}
-Message: ${formData.message}`;
         'Floor mopping & vacuuming',
         'Eco-friendly products',
         '100% satisfaction guarantee'
@@ -258,9 +252,7 @@ Message: ${formData.message}`;
         newSet.add(cardId);
       }
       return newSet;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919528522358?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    });
   };
 
   return (
