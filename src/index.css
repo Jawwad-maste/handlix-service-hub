@@ -179,6 +179,11 @@
     to { transform: rotateY(360deg); }
   }
 
+  @keyframes scroll-infinite {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
   /* Animation Classes */
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
@@ -190,6 +195,15 @@
 
   .animate-rotate-slow {
     animation: rotate-slow 20s linear infinite;
+  }
+
+  /* Testimonials infinite scroll */
+  .animate-scroll-infinite {
+    animation: scroll-infinite 40s linear infinite;
+  }
+
+  .pause-animation:hover {
+    animation-play-state: paused;
   }
 
   /* Scroll Snap */

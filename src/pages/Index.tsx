@@ -504,83 +504,125 @@ const Index = () => {
               />
 
               <div className="relative overflow-hidden">
-                <motion.div
-                  className="flex gap-8"
-                  animate={{
-                    x: [0, -100 * 6 + "vw"]
-                  }}
-                  transition={{
-                    x: {
-                      repeat: Infinity,
-                      repeatType: "loop",
-                      duration: 30,
-                      ease: "linear"
+                <div className="flex gap-8 animate-scroll-infinite hover:pause-animation">
+                  {/* First set of testimonials */}
+                  {[
+                    {
+                      name: "Priya Sharma",
+                      service: "Home Cleaning", 
+                      rating: 5,
+                      comment: "Excellent service! The team was professional and thorough. My house has never been cleaner."
+                    },
+                    {
+                      name: "Rajesh Kumar",
+                      service: "Plumbing",
+                      rating: 5, 
+                      comment: "Quick response for emergency plumbing. Fixed the issue in no time and at a fair price."
+                    },
+                    {
+                      name: "Anjali Gupta", 
+                      service: "Grooming",
+                      rating: 4,
+                      comment: "Convenient home grooming service. The stylist was skilled and very professional."
+                    },
+                    {
+                      name: "Neha Verma",
+                      service: "Appliance Repair",
+                      rating: 5,
+                      comment: "The technician was skilled and polite. My AC is working perfectly now. Highly recommended!"
+                    },
+                    {
+                      name: "Sahil Khan",
+                      service: "Electrical Repairs",
+                      rating: 5,
+                      comment: "Quick and affordable. The team fixed my wiring issues safely and on time."
+                    },
+                    {
+                      name: "Ritu Singh",
+                      service: "Pet Grooming",
+                      rating: 5,
+                      comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
                     }
-                  }}
-                  whileHover={{ animationPlayState: "paused" }}
-                >
-                {[
-                  {
-                    name: "Priya Sharma",
-                    service: "Home Cleaning", 
-                    rating: 5,
-                    comment: "Excellent service! The team was professional and thorough. My house has never been cleaner."
-                  },
-                  {
-                    name: "Rajesh Kumar",
-                    service: "Plumbing",
-                    rating: 5, 
-                    comment: "Quick response for emergency plumbing. Fixed the issue in no time and at a fair price."
-                  },
-                  {
-                    name: "Anjali Gupta", 
-                    service: "Grooming",
-                    rating: 4,
-                    comment: "Convenient home grooming service. The stylist was skilled and very professional."
-                  },
-                  {
-                    name: "Neha Verma",
-                    service: "Appliance Repair",
-                    rating: 5,
-                    comment: "The technician was skilled and polite. My AC is working perfectly now. Highly recommended!"
-                  },
-                  {
-                    name: "Sahil Khan",
-                    service: "Electrical Repairs",
-                    rating: 5,
-                    comment: "Quick and affordable. The team fixed my wiring issues safely and on time."
-                  },
-                  {
-                    name: "Ritu Singh",
-                    service: "Pet Grooming",
-                    rating: 5,
-                    comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
-                  }
-                ].map((review, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.2 }}
-                    className="bg-background-alt p-8 rounded-2xl border border-border flex-shrink-0 w-80"
-                  >
-                    <div className="flex items-center mb-4">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-5 h-5 ${i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
-                        />
-                      ))}
+                  ].map((review, index) => (
+                    <div
+                      key={`first-${index}`}
+                      className="bg-background-alt p-8 rounded-2xl border border-border flex-shrink-0 w-80"
+                    >
+                      <div className="flex items-center mb-4">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-5 h-5 ${i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+                          />
+                        ))}
+                      </div>
+                      <p className="text-body-light mb-4 italic">"{review.comment}"</p>
+                      <div>
+                        <div className="font-semibold text-heading">{review.name}</div>
+                        <div className="text-sm text-body-light">{review.service}</div>
+                      </div>
                     </div>
-                    <p className="text-body-light mb-4 italic">"{review.comment}"</p>
-                    <div>
-                      <div className="font-semibold text-heading">{review.name}</div>
-                      <div className="text-sm text-body-light">{review.service}</div>
+                  ))}
+                  
+                  {/* Duplicate set for seamless loop */}
+                  {[
+                    {
+                      name: "Priya Sharma",
+                      service: "Home Cleaning", 
+                      rating: 5,
+                      comment: "Excellent service! The team was professional and thorough. My house has never been cleaner."
+                    },
+                    {
+                      name: "Rajesh Kumar",
+                      service: "Plumbing",
+                      rating: 5, 
+                      comment: "Quick response for emergency plumbing. Fixed the issue in no time and at a fair price."
+                    },
+                    {
+                      name: "Anjali Gupta", 
+                      service: "Grooming",
+                      rating: 4,
+                      comment: "Convenient home grooming service. The stylist was skilled and very professional."
+                    },
+                    {
+                      name: "Neha Verma",
+                      service: "Appliance Repair",
+                      rating: 5,
+                      comment: "The technician was skilled and polite. My AC is working perfectly now. Highly recommended!"
+                    },
+                    {
+                      name: "Sahil Khan",
+                      service: "Electrical Repairs",
+                      rating: 5,
+                      comment: "Quick and affordable. The team fixed my wiring issues safely and on time."
+                    },
+                    {
+                      name: "Ritu Singh",
+                      service: "Pet Grooming",
+                      rating: 5,
+                      comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
+                    }
+                  ].map((review, index) => (
+                    <div
+                      key={`second-${index}`}
+                      className="bg-background-alt p-8 rounded-2xl border border-border flex-shrink-0 w-80"
+                    >
+                      <div className="flex items-center mb-4">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-5 h-5 ${i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+                          />
+                        ))}
+                      </div>
+                      <p className="text-body-light mb-4 italic">"{review.comment}"</p>
+                      <div>
+                        <div className="font-semibold text-heading">{review.name}</div>
+                        <div className="text-sm text-body-light">{review.service}</div>
+                      </div>
                     </div>
-                  </motion.div>
-                ))}
-                </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
