@@ -542,7 +542,7 @@ const Index = () => {
                       service: "Pet Grooming",
                       rating: 5,
                       comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
-                    }
+                    },
                     {
                       name: "Neha Verma",
                       service: "Appliance Repair",
@@ -619,7 +619,7 @@ const Index = () => {
                       service: "Pet Grooming",
                       rating: 5,
                       comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
-                    }
+                    },
                     {
                       name: "Neha Verma",
                       service: "Appliance Repair",
