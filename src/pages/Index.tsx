@@ -504,7 +504,7 @@ const Index = () => {
               />
 
               <div className="relative overflow-hidden">
-                <div className="flex gap-8 animate-scroll-infinite hover:pause-animation">
+                <div className="flex gap-8 animate-scroll-infinite pause-animation">
                   {/* First set of testimonials */}
                   {[
                     {
@@ -525,6 +525,24 @@ const Index = () => {
                       rating: 4,
                       comment: "Convenient home grooming service. The stylist was skilled and very professional."
                     },
+                    {
+                      name: "Neha Verma",
+                      service: "Appliance Repair",
+                      rating: 5,
+                      comment: "The technician was skilled and polite. My AC is working perfectly now. Highly recommended!"
+                    },
+                    {
+                      name: "Sahil Khan",
+                      service: "Electrical Repairs",
+                      rating: 5,
+                      comment: "Quick and affordable. The team fixed my wiring issues safely and on time."
+                    },
+                    {
+                      name: "Ritu Singh",
+                      service: "Pet Grooming",
+                      rating: 5,
+                      comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
+                    }
                     {
                       name: "Neha Verma",
                       service: "Appliance Repair",
@@ -584,6 +602,24 @@ const Index = () => {
                       rating: 4,
                       comment: "Convenient home grooming service. The stylist was skilled and very professional."
                     },
+                    {
+                      name: "Neha Verma",
+                      service: "Appliance Repair",
+                      rating: 5,
+                      comment: "The technician was skilled and polite. My AC is working perfectly now. Highly recommended!"
+                    },
+                    {
+                      name: "Sahil Khan",
+                      service: "Electrical Repairs",
+                      rating: 5,
+                      comment: "Quick and affordable. The team fixed my wiring issues safely and on time."
+                    },
+                    {
+                      name: "Ritu Singh",
+                      service: "Pet Grooming",
+                      rating: 5,
+                      comment: "Loved the service! My dog looks fresh and clean. Great attention to detail."
+                    }
                     {
                       name: "Neha Verma",
                       service: "Appliance Repair",
