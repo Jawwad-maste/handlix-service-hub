@@ -22,7 +22,7 @@ const Blog = () => {
       id: 'home-cleaning-guide-2025',
       title: 'Ultimate Guide to Home Cleaning Services in India (2025 Edition)',
       excerpt: 'Comprehensive guide covering deep cleaning vs regular cleaning, eco-friendly practices, and when to hire professionals. Learn cost-effective cleaning strategies.',
-      author: 'Handlix Team',
+      author: 'Maaz Bin Jabal',
       date: '2025-01-15',
       readTime: '12 min read',
       category: 'Cleaning',
@@ -92,7 +92,7 @@ const Blog = () => {
       id: 'plumbing-problems-solutions',
       title: 'Top 7 Plumbing Problems Every Homeowner Faces (And How to Fix Them)',
       excerpt: 'Learn to identify common plumbing issues, emergency solutions, and when to call professionals. Includes cost breakdown for repairs in Aligarh.',
-      author: 'Rajesh Kumar',
+      author: 'Maaz Bin Jabal',
       date: '2025-01-12',
       readTime: '10 min read',
       category: 'Plumbing',
@@ -145,7 +145,7 @@ const Blog = () => {
       id: 'electrical-safety-tips',
       title: 'Electrical Safety Tips for Every Indian Household',
       excerpt: 'Essential electrical safety practices, common issues like fan/light repair, and monsoon electrical safety checklist for Indian homes.',
-      author: 'Amit Singh',
+      author: 'Maaz Bin Jabal',
       date: '2025-01-10',
       readTime: '8 min read',
       category: 'Electrical',
@@ -197,7 +197,7 @@ const Blog = () => {
       id: 'appliance-maintenance-guide',
       title: 'Why Regular Appliance Maintenance Saves You Big Money',
       excerpt: 'Learn about AC servicing, washing machine repair, refrigerator maintenance, and early signs of appliance failure to save on costly replacements.',
-      author: 'Vikram Mehta',
+      author: 'Maaz Bin Jabal',
       date: '2025-01-08',
       readTime: '9 min read',
       category: 'Appliance Repair',
@@ -255,7 +255,7 @@ const Blog = () => {
       id: 'at-home-grooming-services-2025',
       title: 'The Rise of At-Home Grooming & Beauty Services in 2025',
       excerpt: 'Explore the growing trend of professional grooming services at home. Men\'s haircuts, women\'s makeup, mehndi services, and the convenience revolution.',
-      author: 'Priya Sharma',
+      author: 'Maaz Bin Jabal',
       date: '2025-01-05',
       readTime: '7 min read',
       category: 'Grooming',
@@ -313,7 +313,7 @@ const Blog = () => {
       id: 'pet-grooming-professional-care',
       title: 'Pet Grooming Services: Why Your Pet Deserves Professional Care',
       excerpt: 'Complete guide to professional pet grooming including dog grooming, cat grooming, hygiene benefits, and specialized care for different breeds.',
-      author: 'Dr. Meera Gupta',
+      author: 'Maaz Bin Jabal',
       date: '2025-01-03',
       readTime: '11 min read',
       category: 'Pet Care',
@@ -332,29 +332,23 @@ const Blog = () => {
           <li>Teeth cleaning (basic)</li>
         </ul>
 
-        <h2>Cat Grooming: Gentle Care for Felines</h2>
-        <p>Cats require specialized grooming techniques. Our cat grooming service (₹449 onwards) focuses on:</p>
-        <ul>
-          <li>Gentle bathing for stress-free experience</li>
-          <li>Coat brushing and detangling</li>
-          <li>Nail trimming with cat-specific tools</li>
-          <li>Eye and ear cleaning</li>
-        </ul>
+        <h3>When to Call Professionals</h3>
+        <p>If the leak persists after basic fixes, or if you notice water damage around the fixture, it's time to call Handlix professionals. Our tap repair service starts from ₹199.</p>
 
-        <h2>Health Benefits of Regular Pet Grooming</h2>
-        <p>Regular grooming provides numerous health benefits:</p>
-        <ul>
-          <li>Early detection of skin problems or parasites</li>
-          <li>Improved circulation through brushing</li>
-          <li>Reduced shedding and allergens</li>
-          <li>Better hygiene and odor control</li>
-        </ul>
+        <h2>2. Clogged Drains</h2>
+        <p>Kitchen and bathroom drains often get clogged due to food particles, hair, soap residue, and other debris. This is especially common during monsoon season in Aligarh.</p>
 
-        <h2>Breed-Specific Grooming Needs</h2>
-        <p>Different breeds have unique grooming requirements. Our professionals are trained to handle all breeds with appropriate techniques and tools.</p>
+        <h2>3. Running Toilets</h2>
+        <p>A running toilet can waste up to 200 gallons of water per day. Common causes include faulty flapper valves, chain issues, or problems with the fill valve.</p>
 
-        <h2>Stress-Free Grooming at Home</h2>
-        <p>Home grooming reduces stress for pets who are anxious about new environments. Our gentle approach ensures a comfortable experience for your furry friends.</p>
+        <h2>4. Low Water Pressure</h2>
+        <p>Low water pressure can be caused by mineral buildup in pipes, partially closed valves, or issues with the municipal water supply.</p>
+
+        <h2>5. Pipe Leakage</h2>
+        <p>Pipe leaks can cause significant water damage if not addressed promptly. Signs include water stains on walls, increased water bills, and musty odors.</p>
+
+        <h2>Emergency Plumbing Services</h2>
+        <p>Handlix offers 24/7 emergency plumbing services in Aligarh. Our emergency response team can reach you within 1-2 hours for urgent repairs.</p>
       `,
       faqs: [
         {
@@ -368,6 +362,79 @@ const Blog = () => {
         {
           question: "Do you groom all dog and cat breeds?",
           answer: "Yes, we provide grooming services for all dog and cat breeds, with specialized techniques for each breed's specific needs."
+        }
+      ]
+    },
+    {
+      id: 'seasonal-home-maintenance-monsoon',
+      title: 'Seasonal Home Maintenance: Preparing Your Home for Monsoons in Aligarh',
+      excerpt: 'Complete monsoon preparation guide for homes in Aligarh. Waterproofing, electrical safety, plumbing checks, and emergency preparedness tips.',
+      author: 'Maaz Bin Jabal',
+      date: '2025-01-01',
+      readTime: '13 min read',
+      category: 'Home Maintenance',
+      image: 'https://images.unsplash.com/photo-1519692933481-e162a57d6721?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      content: `
+        <h2>Why Monsoon Preparation is Critical in Aligarh</h2>
+        <p>Aligarh experiences heavy monsoon rains that can cause significant damage to homes if proper preparation isn't done. From waterlogging to electrical hazards, monsoon season brings unique challenges that require proactive home maintenance.</p>
+
+        <h3>Pre-Monsoon Home Inspection Checklist</h3>
+        <p>Before the monsoon season begins, conduct a thorough inspection of your home:</p>
+        <ul>
+          <li>Roof and terrace waterproofing check</li>
+          <li>Drainage system cleaning and maintenance</li>
+          <li>Electrical wiring and outlet inspection</li>
+          <li>Window and door sealing verification</li>
+          <li>Plumbing system pressure testing</li>
+        </ul>
+
+        <h2>Waterproofing Solutions for Aligarh Homes</h2>
+        <p>Effective waterproofing is essential for protecting your home during heavy rains. Key areas that need attention include:</p>
+        <ul>
+          <li>Terrace and balcony waterproofing with quality sealants</li>
+          <li>External wall treatment to prevent seepage</li>
+          <li>Bathroom and kitchen waterproofing maintenance</li>
+          <li>Foundation waterproofing for ground floor homes</li>
+        </ul>
+
+        <h2>Electrical Safety During Monsoons</h2>
+        <p>Electrical safety becomes paramount during monsoon season. Essential precautions include:</p>
+        <ul>
+          <li>Installing ELCB (Earth Leakage Circuit Breaker) for safety</li>
+          <li>Checking all electrical connections for water exposure</li>
+          <li>Ensuring proper earthing of all appliances</li>
+          <li>Using surge protectors for valuable electronics</li>
+          <li>Regular inspection of outdoor electrical installations</li>
+        </ul>
+
+        <h2>Plumbing Maintenance for Monsoon Season</h2>
+        <p>Proper plumbing maintenance prevents water damage and ensures smooth drainage during heavy rains:</p>
+        <ul>
+          <li>Cleaning and unclogging all drains and gutters</li>
+          <li>Checking for pipe leaks and joint failures</li>
+          <li>Installing additional drainage points if needed</li>
+          <li>Testing water pressure and flow rates</li>
+          <li>Inspecting septic tanks and sewage connections</li>
+        </ul>
+
+        <h2>Emergency Preparedness and Quick Response</h2>
+        <p>Having an emergency plan and quick access to professional services can save your home from extensive damage. Handlix provides 24/7 emergency services during monsoon season for urgent repairs and maintenance.</p>
+
+        <h2>Post-Monsoon Home Recovery</h2>
+        <p>After the monsoon season, conduct a thorough inspection to identify any damage and plan necessary repairs. This includes checking for water damage, electrical issues, and structural problems that may have developed during the rains.</p>
+      `,
+      faqs: [
+        {
+          question: "When should I start monsoon preparation for my home?",
+          answer: "Start monsoon preparation at least 2-3 months before the rainy season begins. This gives you enough time to complete waterproofing, electrical work, and plumbing maintenance."
+        },
+        {
+          question: "What's the cost of waterproofing a terrace in Aligarh?",
+          answer: "Terrace waterproofing costs vary based on area and materials used. Contact Handlix for a detailed quote based on your specific requirements."
+        },
+        {
+          question: "Do you provide emergency services during heavy rains?",
+          answer: "Yes, Handlix provides 24/7 emergency services during monsoon season for urgent repairs, waterproofing, and electrical safety issues."
         }
       ]
     }
