@@ -206,22 +206,6 @@
     animation-play-state: paused;
   }
 
-  /* Text Glow Animation for Grid Motion */
-  @keyframes textGlow {
-    0%, 100% {
-      text-shadow: 0 0 10px rgba(255, 106, 0, 0.6), 0 0 20px rgba(255, 46, 99, 0.4), 0 0 30px rgba(106, 17, 203, 0.3);
-      opacity: 0.8;
-    }
-    50% {
-      text-shadow: 0 0 20px rgba(255, 106, 0, 0.8), 0 0 40px rgba(255, 46, 99, 0.6), 0 0 60px rgba(106, 17, 203, 0.5);
-      opacity: 1;
-    }
-  }
-
-  .text-glow-pulse {
-    animation: textGlow 3s ease-in-out infinite;
-  }
-
   /* Scroll Snap */
   .scroll-snap-y {
     scroll-snap-type: y mandatory;
