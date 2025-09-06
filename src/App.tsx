@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { useEffect } from "react";
-import { ScrollToTop } from "@/components/ScrollToTop";
+import { ScrollToTop as ScrollToTopButton } from "@/components/ScrollToTop";
 
 // Pages
 import Index from "./pages/Index";
@@ -17,8 +17,8 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Component to handle scroll to top on route change
-const ScrollToTop = () => {
+// Component to handle scroll to top on route change (must be inside Router)
+const RouteChangeScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <ScrollToTop />
+          <RouteChangeScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<Services />} />
@@ -70,8 +70,8 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ScrollToTopButton />
         </BrowserRouter>
-        <ScrollToTop />
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>
