@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ArrowRight, User, Search, Filter } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, User, Search, Filter, ArrowLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -442,7 +442,6 @@ const Blog = () => {
 
   const categories = [
     'All Posts',
-    'Cleaning', 
     'Plumbing',
     'Electrical',
     'Appliance Repair',
@@ -485,6 +484,19 @@ const Blog = () => {
         <Header />
         
         <main className="min-h-screen bg-background pt-20">
+          {/* Back Button */}
+          <section className="py-4">
+            <div className="container-custom">
+              <Link
+                to="/blog"
+                className="inline-flex items-center text-brand-orange hover:text-brand-pink transition-colors font-medium focus-ring rounded-lg px-3 py-2"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Blogs
+              </Link>
+            </div>
+          </section>
+
           {/* Blog Hero */}
           <section className="section-padding">
             <div className="container-custom">
