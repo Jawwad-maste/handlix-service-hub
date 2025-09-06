@@ -489,7 +489,10 @@ const Blog = () => {
             <div className="container-custom">
               <Link
                 to="/blog"
-                className="inline-flex items-center text-brand-orange hover:text-brand-pink transition-colors font-medium focus-ring rounded-lg px-3 py-2"
+                className="inline-flex items-center bg-white text-brand-orange hover:text-brand-pink transition-all duration-300 font-medium focus-ring rounded-lg px-4 py-2 border-2 border-transparent bg-gradient-to-r from-brand-orange via-brand-pink to-brand-purple bg-clip-border hover:shadow-lg"
+                style={{
+                  background: 'linear-gradient(white, white) padding-box, linear-gradient(135deg, hsl(var(--brand-orange)), hsl(var(--brand-pink)), hsl(var(--brand-purple))) border-box'
+                }}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Blogs
