@@ -300,13 +300,13 @@ const Index = () => {
                   <div className="w-full h-[500px] rounded-2xl overflow-hidden">
                     <GridMotion 
                       items={[
-                        '🏠 Home Cleaning', '🔧 Plumbing', '⚡ Electrical', '🛠️ Appliance Repair',
-                        '✂️ Grooming', '🐕 Pet Care', '🧹 Deep Clean', '🚿 Bathroom',
-                        '💡 Lighting', '🔌 Wiring', '🪒 Shaving', '💇 Haircut',
-                        '🐱 Cat Grooming', '🏠 Kitchen', '🛁 Pipe Repair', '⚡ Fan Repair',
-                        '🧴 Facial', '🐕 Dog Bath', '🪟 Window Clean', '🚰 Tap Fix',
-                        '💡 Switch Install', '💇‍♀️ Hair Style', '🐾 Nail Trim', '🧽 Floor Clean',
-                        '🔧 Leak Fix', '⚡ AC Repair', '🪒 Beard Trim', '🐕 Pet Wash'
+                        'Cleaning', 'Plumbing', 'Electrical', 'Appliance Repair',
+                        'Grooming', 'Pet Care', 'Deep Clean', 'Bathroom',
+                        'Lighting', 'Wiring', 'Shaving', 'Haircut',
+                        'Cat Grooming', 'Kitchen', 'Pipe Repair', 'Fan Repair',
+                        'Facial', 'Dog Bath', 'Window Clean', 'Tap Fix',
+                        'Switch Install', 'Hair Style', 'Nail Trim', 'Floor Clean',
+                        'Leak Fix', 'AC Repair', 'Beard Trim', 'Pet Wash'
                       ]}
                       gradientColor="hsl(var(--brand-orange))"
                       className="opacity-80"

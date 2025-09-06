@@ -17,6 +17,21 @@ interface GridMotionProps {
   className?: string
 }
 
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255, 106, 0, 0.6), 0 0 20px rgba(255, 46, 99, 0.4), 0 0 30px rgba(106, 17, 203, 0.3);
+    opacity: 0.8;
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 106, 0, 0.8), 0 0 40px rgba(255, 46, 99, 0.6), 0 0 60px rgba(106, 17, 203, 0.5);
+    opacity: 1;
+  }
+}
+
+.text-glow-pulse {
+  animation: textGlow 3s ease-in-out infinite;
+}
+
 export function GridMotion({
   items = [],
   gradientColor = 'black',
@@ -87,7 +102,11 @@ export function GridMotion({
                 const content = combinedItems[rowIndex * 7 + itemIndex]
                 return (
                   <div key={itemIndex} className="relative">
-                    <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted/20 backdrop-blur-sm flex items-center justify-center text-foreground text-xl border border-white/10">
+                    <div className="relative h-full w-full overflow-hidden rounded-lg backdrop-blur-md flex items-center justify-center text-white border border-white/20" 
+                         style={{
+                           background: 'linear-gradient(135deg, rgba(255, 106, 0, 0.25), rgba(255, 46, 99, 0.25), rgba(106, 17, 203, 0.25))',
+                           boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+                         }}>
                       {typeof content === 'string' && content.startsWith('http') ? (
                         <div
                           className="absolute inset-0 bg-cover bg-center"
@@ -96,7 +115,7 @@ export function GridMotion({
                           }}
                         />
                       ) : (
-                        <div className="p-4 text-center z-1 text-white/80 font-medium">
+                        <div className="p-4 text-center z-1 text-white font-semibold text-2xl italic leading-relaxed text-glow-pulse">
                           {content}
                         </div>
                       )}
