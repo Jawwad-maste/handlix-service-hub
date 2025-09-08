@@ -63,10 +63,11 @@ const MobileMenu = ({ isOpen, onClose, navLinks }: MobileMenuProps) => {
               {/* Header */}
               <div className="p-6 border-b border-border">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-brand rounded-xl flex items-center justify-center">
-                    <span className="text-white font-black text-xl">H</span>
-                  </div>
-                  <span className="text-2xl font-black text-heading">HANDLIX</span>
+                  <img 
+                    src="/Handlix-Logo-with-Text-without-background.png" 
+                    alt="Handlix Logo" 
+                    className="h-10 w-auto object-contain"
+                  />
                 </div>
               </div>
 

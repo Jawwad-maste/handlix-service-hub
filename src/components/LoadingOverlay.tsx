@@ -85,7 +85,7 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
 
   const BeatAnimation = () => (
     <motion.div
-      className="w-24 h-24 rounded-2xl bg-gradient-brand flex items-center justify-center"
+      className="w-24 h-24 flex items-center justify-center"
       animate={{
         scale: [0.96, 1.04, 0.96],
       }}
@@ -96,7 +96,7 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
       }}
     >
       <motion.span 
-        className="text-4xl font-black text-white"
+        className="w-full h-full"
         animate={{
           scale: [1, 1.1, 1],
         }}
@@ -106,7 +106,11 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
           ease: "easeInOut"
         }}
       >
-        H
+        <img 
+          src="/Handlix-logo-without-background.png" 
+          alt="Handlix Logo" 
+          className="w-full h-full object-contain"
+        />
       </motion.span>
     </motion.div>
   );
@@ -117,8 +121,12 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
 
   const InstantDisplay = () => (
     <div className="flex items-center justify-center">
-      <div className="w-20 h-20 bg-gradient-brand rounded-2xl flex items-center justify-center mr-2">
-        <span className="text-white font-black text-4xl">H</span>
+      <div className="w-20 h-20 flex items-center justify-center mr-2">
+        <img 
+          src="/Handlix-logo-without-background.png" 
+          alt="Handlix Logo" 
+          className="w-full h-full object-contain"
+        />
       </div>
       <span className="text-6xl font-black text-heading">ANDLIX</span>
     </div>
