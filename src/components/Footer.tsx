@@ -172,7 +172,7 @@ const Footer = () => {
             className="border-t border-white/20 mt-12 pt-8 text-center"
           >
             <p className="text-white/80">
-              © 2025 Handlix Pvt Ltd. All Rights Reserved.
+              © 2025 Handlix Services Pvt Ltd. All Rights Reserved.
             </p>
           </motion.div>
         </div>
