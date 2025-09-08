@@ -25,64 +25,57 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
     };
   }, [onComplete]);
 
-  // --- Letter by letter animation ---
+  // --- Logo + Letters Animation ---
   const LetterAnimation = () => {
     const letters = ['H', 'A', 'N', 'D', 'L', 'I', 'X'];
     
     return (
       <div className="flex items-center justify-center">
-        {letters.map((letter, index) => {
-          if (index === 0) {
-            // Replace gradient H with logo image
-            return (
-              <motion.img
-                key={letter}
-                src="/Handlix-logo-without-background.png"
-                alt="Handlix Logo"
-                className="w-20 h-20 mr-2 object-contain"
-                initial={{ opacity: 1, scale: 1 }}
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{
-                  scale: {
-                    duration: 1,
-                    delay: 0.5,
-                    ease: "easeInOut"
-                  }
-                }}
-              />
-            );
-          } else {
-            // Remaining letters
-            return (
-              <motion.span
-                key={letter}
-                className="text-6xl font-black text-heading"
-                initial={{ 
-                  opacity: 0, 
-                  x: -30,
-                  scale: 0.5
-                }}
-                animate={{ 
-                  opacity: 1, 
-                  x: 0,
-                  scale: 1
-                }}
-                transition={{
-                  duration: 0.4,
-                  delay: 0.8 + (index - 1) * 0.15,
-                  ease: "backOut"
-                }}
-              >
-                {letter}
-              </motion.span>
-            );
-          }
-        })}
+        {/* Static logo */}
+        <motion.img
+          src="/Handlix-logo-without-background.png"
+          alt="Handlix Logo"
+          className="w-20 h-20 mr-2 object-contain"
+          initial={{ opacity: 1, scale: 1 }}
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{
+            scale: {
+              duration: 1,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }
+          }}
+        />
+
+        {/* Animated letters including H */}
+        {letters.map((letter, index) => (
+          <motion.span
+            key={letter}
+            className="text-6xl font-black text-heading"
+            initial={{ 
+              opacity: 0, 
+              x: -30,
+              scale: 0.5
+            }}
+            animate={{ 
+              opacity: 1, 
+              x: 0,
+              scale: 1
+            }}
+            transition={{
+              duration: 0.4,
+              delay: 0.8 + index * 0.15,  // sequential delay
+              ease: "backOut"
+            }}
+          >
+            {letter}
+          </motion.span>
+        ))}
       </div>
     );
   };
 
-  // --- Beat animation for logo ---
+  // --- Beat animation (logo only) ---
   const BeatAnimation = () => (
     <motion.img
       src="/Handlix-logo-without-background.png"
@@ -105,7 +98,7 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
         alt="Handlix Logo" 
         className="w-20 h-20 mr-2 object-contain"
       />
-      <span className="text-6xl font-black text-heading">ANDLIX</span>
+      <span className="text-6xl font-black text-heading">HANDLIX</span>
     </div>
   );
 
