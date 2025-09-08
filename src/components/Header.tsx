@@ -48,11 +48,12 @@ const Header = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3 focus-ring rounded-lg">
-              <img 
-                src="/Handlix-Logo-with-Text-without-background.png" 
-                alt="Handlix Logo" 
-                className="h-10 md:h-12 w-auto object-contain"
-              />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-brand rounded-xl flex items-center justify-center">
+                <span className="text-white font-black text-xl md:text-2xl">H</span>
+              </div>
+              <span className="text-2xl md:text-3xl font-black text-heading">
+                HANDLIX
+              </span>
             </Link>
 
             {/* Desktop Navigation */}

@@ -48,15 +48,14 @@ const Footer = () => {
               className="lg:col-span-1"
             >
               <div className="flex items-center space-x-3 mb-6">
-                <img 
-                  src="/Handlix-Logo-with-Text-without-background.png" 
-                  alt="Handlix Logo" 
-                  className="h-12 w-auto object-contain brightness-0 invert"
-                />
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-black text-2xl">H</span>
+                </div>
+                <span className="text-3xl font-black">HANDLIX</span>
               </div>
               
               <p className="text-white/80 text-lg mb-6 leading-relaxed">
-                © 2025 Handlix Services Pvt Ltd. All Rights Reserved.
+                Handling life's essentials, effortlessly. Your trusted partner for all home services in Aligarh and beyond.
               </p>
 
               {/* Social Links */}
