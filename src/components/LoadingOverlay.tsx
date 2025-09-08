@@ -25,6 +25,7 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
     };
   }, [onComplete]);
 
+  // --- Letter by letter animation ---
   const LetterAnimation = () => {
     const letters = ['H', 'A', 'N', 'D', 'L', 'I', 'X'];
     
@@ -32,15 +33,15 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
       <div className="flex items-center justify-center">
         {letters.map((letter, index) => {
           if (index === 0) {
-            // H logo - gradient background with white H
+            // Replace gradient H with logo image
             return (
-              <motion.div
+              <motion.img
                 key={letter}
-                className="w-20 h-20 bg-gradient-brand rounded-2xl flex items-center justify-center mr-2"
+                src="/Handlix-logo-without-background.png"
+                alt="Handlix Logo"
+                className="w-20 h-20 mr-2 object-contain"
                 initial={{ opacity: 1, scale: 1 }}
-                animate={{ 
-                  scale: [1, 1.1, 1],
-                }}
+                animate={{ scale: [1, 1.1, 1] }}
                 transition={{
                   scale: {
                     duration: 1,
@@ -48,12 +49,10 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
                     ease: "easeInOut"
                   }
                 }}
-              >
-                <span className="text-white font-black text-4xl">H</span>
-              </motion.div>
+              />
             );
           } else {
-            // Remaining letters - animate in sequence
+            // Remaining letters
             return (
               <motion.span
                 key={letter}
@@ -83,46 +82,36 @@ const LoadingOverlay = ({ onComplete, variant = 'letters' }: LoadingOverlayProps
     );
   };
 
+  // --- Beat animation for logo ---
   const BeatAnimation = () => (
-    <motion.div
-      className="w-24 h-24 rounded-2xl bg-gradient-brand flex items-center justify-center"
-      animate={{
-        scale: [0.96, 1.04, 0.96],
-      }}
+    <motion.img
+      src="/Handlix-logo-without-background.png"
+      alt="Handlix Logo"
+      className="w-24 h-24 object-contain"
+      animate={{ scale: [0.96, 1.04, 0.96] }}
       transition={{
         duration: 1.5,
         repeat: Infinity,
         ease: "easeInOut"
       }}
-    >
-      <motion.span 
-        className="text-4xl font-black text-white"
-        animate={{
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        H
-      </motion.span>
-    </motion.div>
+    />
   );
 
-  // Check for reduced motion preference
-  const prefersReducedMotion = typeof window !== 'undefined' && 
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+  // --- Instant Display for reduced motion ---
   const InstantDisplay = () => (
     <div className="flex items-center justify-center">
-      <div className="w-20 h-20 bg-gradient-brand rounded-2xl flex items-center justify-center mr-2">
-        <span className="text-white font-black text-4xl">H</span>
-      </div>
+      <img 
+        src="/Handlix-logo-without-background.png" 
+        alt="Handlix Logo" 
+        className="w-20 h-20 mr-2 object-contain"
+      />
       <span className="text-6xl font-black text-heading">ANDLIX</span>
     </div>
   );
+
+  // Check reduced motion
+  const prefersReducedMotion = typeof window !== 'undefined' && 
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   return (
     <AnimatePresence>
