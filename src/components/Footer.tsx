@@ -48,9 +48,6 @@ const Footer = () => {
               className="lg:col-span-1"
             >
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-black text-2xl">H</span>
-                </div>
                 <span className="text-3xl font-black">HANDLIX</span>
               </div>
               
